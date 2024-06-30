@@ -9,7 +9,7 @@ if __name__ == '__main__':
     import numpy as np
 
     # Define the environment
-    n_states = 90  # Number of states in the grid world
+    n_states = 900  # Number of states in the grid world
     n_actions = 3  # Number of possible actions (up, down, left, right)
     goal_state = 8  # Goal state
 
