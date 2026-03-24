@@ -241,14 +241,14 @@ def assess_filing(form: str, signals: dict) -> str:
     if signals.get("fetch_failed"):
         return "Unknown — could not fetch document"
 
-    if signals["has_concrete_date"] and not signals["has_placeholders"] and signals["stifel_confirmed"]:
+    if signals.get("has_concrete_date") and not signals.get("has_placeholders") and signals.get("stifel_confirmed"):
         return "IMMINENT — registration effective or date confirmed"
 
-    cleared = not signals["has_placeholders"] and signals["stifel_confirmed"]
+    cleared = not signals.get("has_placeholders") and signals.get("stifel_confirmed")
     mostly_cleared = (
-        signals["placeholder_count"] is not None
-        and signals["placeholder_count"] <= 3
-        and signals["stifel_confirmed"]
+        signals.get("placeholder_count") is not None
+        and signals.get("placeholder_count", 0) <= 3
+        and signals.get("stifel_confirmed")
     )
 
     if cleared or mostly_cleared:
@@ -337,15 +337,15 @@ def build_alert_body(new_filings: list[dict], news_items: list[dict]) -> tuple[s
             f"Document:    {sec_link}",
             f"All filings: {filing_index}",
         ]
-        if "signals" in f and not f["signals"].get("fetch_failed"):
+        if "signals" in f and f["signals"] and not f["signals"].get("fetch_failed"):
             s = f["signals"]
             lines += [
                 "",
                 "  Signal details:",
-                f"    Bracketed placeholders remaining: {s['placeholder_count']}",
-                f"    Stifel confirmed (no brackets):   {s['stifel_confirmed']}",
-                f"    Concrete listing date found:      {s['has_concrete_date']}",
-                f"    'As soon as practicable' present: {s['as_soon_as_practicable']}",
+                f"    Bracketed placeholders remaining: {s.get('placeholder_count', 'N/A')}",
+                f"    Stifel confirmed (no brackets):   {s.get('stifel_confirmed', 'N/A')}",
+                f"    Concrete listing date found:      {s.get('has_concrete_date', 'N/A')}",
+                f"    'As soon as practicable' present: {s.get('as_soon_as_practicable', 'N/A')}",
             ]
         lines.append("")
 
