@@ -1,0 +1,20 @@
+# Runtime state (persisted between runs — do not commit)
+pwrl_monitor_state.json
+pwrl_monitor_alerts.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environment
+.env
+
+# Logs / output
+*.out
+*.log
+
+# IDE
+.idea/
+.vscode/
