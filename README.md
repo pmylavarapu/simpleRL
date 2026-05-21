@@ -29,24 +29,25 @@ PDFs ──► [Claude vision per page] ──► page facts (each w/ pdf_id, pa
 
 ## Run it
 
-Requires Python 3.11+, Node 20+, and `ANTHROPIC_API_KEY`.
+Requires Python 3.11+, Node 20+, and an Anthropic API key. One command:
 
 ```bash
-# 1. Backend
-pip install -r backend/requirements.txt
-python samples/generate_synthetic_patient.py   # only first time
-export ANTHROPIC_API_KEY=sk-ant-...
-uvicorn app.main:app --reload --app-dir backend --port 8000
+git clone https://github.com/pmylavarapu/simpleRL.git
+cd simpleRL
+git checkout claude/medical-records-summarizer-pPmG3
+./start.sh
 ```
 
-```bash
-# 2. Frontend (new terminal)
-cd frontend
-npm install
-npm run dev    # http://localhost:3000
-```
+`start.sh` will:
+1. Verify the toolchain
+2. Create `.venv/`, install backend deps
+3. Install frontend deps
+4. Generate the synthetic patient PDFs if missing
+5. Prompt for `ANTHROPIC_API_KEY` (saved to `.env` so you only enter it once)
+6. Start both servers, open http://localhost:3000
 
-Drop `samples/outside_records/*.pdf` into the upload, click **Run pipeline**.
+Then drop `samples/outside_records/*.pdf` into the upload, click **Run pipeline**.
+Ctrl+C in the terminal stops both servers.
 
 ## Alternative: headless pipeline
 
