@@ -1,0 +1,204 @@
+{
+  "$schema_notes": "Curated subset of ACC/AHA guideline recommendations used by the rule-based planner. Every rule emits its `recommendation_text` verbatim along with the citation. The planner does not paraphrase. To add a rule, append an object with the schema below. preconditions are evaluated by app/planner.py against the patient's problem list, meds, labs, and imaging.",
+  "rules": [
+    {
+      "id": "hfref-arni",
+      "problem_match": ["Heart Failure with Reduced Ejection Fraction", "HFrEF"],
+      "preconditions": [
+        {"kind": "ef_at_most", "value": 40},
+        {"kind": "no_med_substring_any", "values": ["sacubitril", "valsartan/sacubitril", "entresto"]}
+      ],
+      "priority": 1,
+      "recommendation_text": "In patients with HFrEF, replacement of an ACE inhibitor or ARB with an angiotensin receptor-neprilysin inhibitor (ARNI; sacubitril/valsartan) is recommended to further reduce morbidity and mortality.",
+      "rationale_for_patient": "ARNI is a foundational GDMT pillar in HFrEF and is preferred over ACEi/ARB when tolerated.",
+      "citation": {
+        "guideline": "ACC/AHA/HFSA Guideline for the Management of Heart Failure",
+        "year": 2022,
+        "section": "Recommendations for Renin-Angiotensin System Inhibition in HFrEF",
+        "cor": "I",
+        "loe": "B-R",
+        "doi": "10.1161/CIR.0000000000001063",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001063"
+      }
+    },
+    {
+      "id": "hfref-bb",
+      "problem_match": ["Heart Failure with Reduced Ejection Fraction", "HFrEF"],
+      "preconditions": [
+        {"kind": "ef_at_most", "value": 40},
+        {"kind": "no_med_substring_any", "values": ["carvedilol", "metoprolol succinate", "bisoprolol"]}
+      ],
+      "priority": 1,
+      "recommendation_text": "In patients with HFrEF, use of one of the three beta blockers proven to reduce mortality (bisoprolol, carvedilol, or sustained-release metoprolol succinate) is recommended.",
+      "rationale_for_patient": "Evidence-based beta blockers reduce mortality in HFrEF.",
+      "citation": {
+        "guideline": "ACC/AHA/HFSA Guideline for the Management of Heart Failure",
+        "year": 2022,
+        "section": "Recommendations for Beta Blockers in HFrEF",
+        "cor": "I",
+        "loe": "A",
+        "doi": "10.1161/CIR.0000000000001063",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001063"
+      }
+    },
+    {
+      "id": "hfref-mra",
+      "problem_match": ["Heart Failure with Reduced Ejection Fraction", "HFrEF"],
+      "preconditions": [
+        {"kind": "ef_at_most", "value": 35},
+        {"kind": "egfr_at_least", "value": 30},
+        {"kind": "k_at_most", "value": 5.0},
+        {"kind": "no_med_substring_any", "values": ["spironolactone", "eplerenone"]}
+      ],
+      "priority": 1,
+      "recommendation_text": "In patients with HFrEF and LVEF ≤35%, a mineralocorticoid receptor antagonist (spironolactone or eplerenone) is recommended to reduce morbidity and mortality, provided eGFR ≥30 mL/min/1.73 m² and serum potassium ≤5.0 mEq/L.",
+      "rationale_for_patient": "MRAs are a GDMT pillar in HFrEF when renal function and potassium permit.",
+      "citation": {
+        "guideline": "ACC/AHA/HFSA Guideline for the Management of Heart Failure",
+        "year": 2022,
+        "section": "Recommendations for MRAs in HFrEF",
+        "cor": "I",
+        "loe": "A",
+        "doi": "10.1161/CIR.0000000000001063",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001063"
+      }
+    },
+    {
+      "id": "hfref-sglt2",
+      "problem_match": ["Heart Failure with Reduced Ejection Fraction", "HFrEF"],
+      "preconditions": [
+        {"kind": "ef_at_most", "value": 40},
+        {"kind": "no_med_substring_any", "values": ["dapagliflozin", "empagliflozin", "sotagliflozin"]}
+      ],
+      "priority": 1,
+      "recommendation_text": "In patients with symptomatic chronic HFrEF, an SGLT2 inhibitor is recommended to reduce hospitalization for heart failure and cardiovascular mortality, irrespective of the presence of type 2 diabetes.",
+      "rationale_for_patient": "SGLT2 inhibitors are a GDMT pillar; benefit is independent of diabetes status.",
+      "citation": {
+        "guideline": "ACC/AHA/HFSA Guideline for the Management of Heart Failure",
+        "year": 2022,
+        "section": "Recommendations for SGLT2 Inhibitors in HFrEF",
+        "cor": "I",
+        "loe": "A",
+        "doi": "10.1161/CIR.0000000000001063",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001063"
+      }
+    },
+    {
+      "id": "af-anticoag",
+      "problem_match": ["Atrial Fibrillation", "AFib", "AF"],
+      "preconditions": [
+        {"kind": "cha2ds2vasc_at_least", "value": 2},
+        {"kind": "no_med_substring_any", "values": ["apixaban", "rivaroxaban", "dabigatran", "edoxaban", "warfarin"]}
+      ],
+      "priority": 1,
+      "recommendation_text": "In patients with AF and an elevated risk of stroke (e.g., CHA₂DS₂-VASc score ≥2 in men or ≥3 in women), oral anticoagulation is recommended. For patients without moderate-to-severe rheumatic mitral stenosis or a mechanical heart valve, DOACs are recommended over warfarin.",
+      "rationale_for_patient": "Stroke prevention is the cornerstone of AF management when CHA₂DS₂-VASc-based risk is elevated.",
+      "citation": {
+        "guideline": "ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation",
+        "year": 2023,
+        "section": "Recommendations for Stroke Risk Assessment and Antithrombotic Therapy",
+        "cor": "I",
+        "loe": "A",
+        "doi": "10.1161/CIR.0000000000001193",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001193"
+      }
+    },
+    {
+      "id": "af-anticoag-continue",
+      "problem_match": ["Atrial Fibrillation", "AFib", "AF"],
+      "preconditions": [
+        {"kind": "cha2ds2vasc_at_least", "value": 2},
+        {"kind": "any_med_substring_any", "values": ["apixaban", "rivaroxaban", "dabigatran", "edoxaban", "warfarin"]}
+      ],
+      "priority": 1,
+      "recommendation_text": "Continue oral anticoagulation for stroke prevention in AF with elevated CHA₂DS₂-VASc; DOACs are preferred over warfarin in eligible patients.",
+      "rationale_for_patient": "Anticoagulation is appropriately in place; continue and reassess bleeding risk periodically.",
+      "citation": {
+        "guideline": "ACC/AHA/ACCP/HRS Guideline for the Diagnosis and Management of Atrial Fibrillation",
+        "year": 2023,
+        "section": "Recommendations for Stroke Risk Assessment and Antithrombotic Therapy",
+        "cor": "I",
+        "loe": "A",
+        "doi": "10.1161/CIR.0000000000001193",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001193"
+      }
+    },
+    {
+      "id": "ascvd-secondary-statin",
+      "problem_match": ["Coronary Artery Disease", "CAD", "ASCVD", "s/p PCI", "s/p MI", "Prior MI", "Chronic Coronary Disease"],
+      "preconditions": [
+        {"kind": "no_high_intensity_statin"}
+      ],
+      "priority": 1,
+      "recommendation_text": "In patients with clinical ASCVD, high-intensity statin therapy is recommended with the aim of achieving ≥50% reduction in LDL-C.",
+      "rationale_for_patient": "Secondary prevention requires high-intensity statin therapy for ASCVD risk reduction.",
+      "citation": {
+        "guideline": "ACC/AHA Guideline on the Management of Blood Cholesterol",
+        "year": 2018,
+        "section": "Recommendations for Secondary ASCVD Prevention",
+        "cor": "I",
+        "loe": "A",
+        "doi": "10.1161/CIR.0000000000000625",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000000625"
+      }
+    },
+    {
+      "id": "ascvd-very-high-add-on",
+      "problem_match": ["Coronary Artery Disease", "CAD", "ASCVD", "s/p PCI", "s/p MI", "Prior MI", "Chronic Coronary Disease"],
+      "preconditions": [
+        {"kind": "very_high_risk_ascvd"},
+        {"kind": "ldl_at_least", "value": 70}
+      ],
+      "priority": 2,
+      "recommendation_text": "In very high-risk ASCVD patients with LDL-C ≥70 mg/dL on maximally tolerated statin therapy, it is reasonable to add ezetimibe; if LDL-C remains ≥70 mg/dL on maximally tolerated statin and ezetimibe, addition of a PCSK9 monoclonal antibody is reasonable.",
+      "rationale_for_patient": "Stepwise non-statin therapy reduces LDL-C and ASCVD events in very high-risk patients.",
+      "citation": {
+        "guideline": "ACC/AHA Guideline on the Management of Blood Cholesterol",
+        "year": 2018,
+        "section": "Recommendations for Very High-Risk ASCVD",
+        "cor": "IIa",
+        "loe": "B-R",
+        "doi": "10.1161/CIR.0000000000000625",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000000625"
+      }
+    },
+    {
+      "id": "htn-target",
+      "problem_match": ["Hypertension", "HTN"],
+      "preconditions": [
+        {"kind": "bp_above", "systolic": 130, "diastolic": 80}
+      ],
+      "priority": 2,
+      "recommendation_text": "In adults with confirmed hypertension and known CVD or 10-year ASCVD risk ≥10%, a BP target of <130/80 mm Hg is recommended.",
+      "rationale_for_patient": "Tighter BP control reduces CV events in higher-risk hypertensive patients.",
+      "citation": {
+        "guideline": "ACC/AHA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults",
+        "year": 2017,
+        "section": "Recommendations for BP Treatment Goals",
+        "cor": "I",
+        "loe": "B-R",
+        "doi": "10.1161/HYP.0000000000000065",
+        "url": "https://www.ahajournals.org/doi/10.1161/HYP.0000000000000065"
+      }
+    },
+    {
+      "id": "cad-antiplatelet",
+      "problem_match": ["Coronary Artery Disease", "CAD", "s/p PCI", "s/p MI", "Prior MI", "Chronic Coronary Disease"],
+      "preconditions": [
+        {"kind": "no_med_substring_any", "values": ["aspirin", "asa", "clopidogrel", "ticagrelor", "prasugrel"]}
+      ],
+      "priority": 1,
+      "recommendation_text": "In patients with chronic coronary disease, low-dose aspirin 81 mg daily is recommended for secondary prevention to reduce atherothrombotic events.",
+      "rationale_for_patient": "Lifelong antiplatelet therapy reduces recurrent MI and stroke in chronic coronary disease.",
+      "citation": {
+        "guideline": "AHA/ACC Guideline for the Management of Patients With Chronic Coronary Disease",
+        "year": 2023,
+        "section": "Recommendations for Antiplatelet Therapy",
+        "cor": "I",
+        "loe": "A",
+        "doi": "10.1161/CIR.0000000000001168",
+        "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001168"
+      }
+    }
+  ]
+}
