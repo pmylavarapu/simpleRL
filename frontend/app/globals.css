@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; background: #f7f9fc; color: #0b1220; }
+
+/* react-pdf text layer baseline */
+.react-pdf__Page__textContent { color: transparent; }
+.react-pdf__Page__textContent ::selection { background: #ffe066; }
+
+/* highlight class injected by PdfPane after text-layer render */
+.evidence-highlight {
+  background: rgba(255, 230, 102, 0.65) !important;
+  color: transparent !important;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(184, 134, 11, 0.5);
+}
+
+/* Source-anchored claim styling */
+.claim {
+  cursor: pointer;
+  border-bottom: 1px dotted #9fb5d3;
+  transition: background 80ms ease;
+}
+.claim:hover { background: #fff3a3; }
+.claim.active { background: #fff3a3; }
