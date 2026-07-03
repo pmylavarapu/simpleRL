@@ -45,26 +45,44 @@ prisma/
 ```bash
 npm install
 cp .env.example .env.local          # fill in values
-npm run db:push                     # push schema to your Postgres
+npx prisma migrate deploy           # apply schema to your Postgres
 npm run dev
 ```
 
 Env vars (`.env.local`):
 
-- `DATABASE_URL` — Postgres connection string
+- `POSTGRES_PRISMA_URL` — pooled Postgres URL (app runtime queries)
+- `POSTGRES_URL_NON_POOLING` — direct Postgres URL (migrations)
 - `AUTH_SECRET` — `openssl rand -base64 32`
 - `AUTH_URL` — e.g. `http://localhost:3000` (Vercel sets automatically in prod)
-- `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` — from Google Cloud Console → Credentials → OAuth client ID (Web application). Add authorized redirect URIs:
+- `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` — from Google Cloud Console → Credentials → OAuth 2.0 Client ID (Web application). Add authorized redirect URIs:
   - `http://localhost:3000/api/auth/callback/google`
   - `https://<your-vercel-domain>/api/auth/callback/google`
 
 ## Deploy to Vercel
 
-1. Push branch to GitHub.
-2. Import repository in Vercel.
-3. Add **Vercel Postgres** integration (this sets `DATABASE_URL` automatically).
-4. Add env vars for Google + `AUTH_SECRET` (Vercel handles `AUTH_URL` and `NEXTAUTH_URL`).
-5. Deploy. First deploy: run `npx prisma db push` locally against the production DB (or add a build step), or use `prisma migrate deploy` once migrations exist.
+**1. Import the repo.** Go to [vercel.com/new](https://vercel.com/new) → select `pmylavarapu/simpleRL` → set branch to `claude/ase-echo-knowledge-base-asuyl9` for the first preview (or merge to `main` first if you prefer prod). Framework auto-detects as Next.js.
+
+**2. Provision a Postgres database.** In the new Vercel project → Storage tab → Create Database → Neon (Vercel's managed Postgres). Attach it to the project. This auto-injects `POSTGRES_PRISMA_URL` and `POSTGRES_URL_NON_POOLING` into all environments.
+
+**3. Set up Google OAuth.** At [console.cloud.google.com](https://console.cloud.google.com) → APIs & Services → Credentials:
+   - Create OAuth consent screen (External, add your email as a test user)
+   - Create Credentials → OAuth 2.0 Client ID → Web application
+   - Authorized redirect URIs (add both):
+     - `http://localhost:3000/api/auth/callback/google`
+     - `https://<your-vercel-domain>/api/auth/callback/google`  ← add after first Vercel deploy assigns a domain
+   - Copy Client ID and Client Secret.
+
+**4. Add remaining env vars in Vercel** (Project → Settings → Environment Variables):
+   - `AUTH_SECRET` = output of `openssl rand -base64 32`
+   - `AUTH_GOOGLE_ID` = Google client ID
+   - `AUTH_GOOGLE_SECRET` = Google client secret
+
+**5. Deploy.** Click "Redeploy" so the build picks up the new env vars. The build script runs `prisma migrate deploy` and applies the initial migration to your Neon DB automatically.
+
+**6. Update Google OAuth redirect URI** with your final Vercel URL, then redeploy once more if needed.
+
+**7. Sign in and test.** Visit `/signin`, sign in with Google, then `/review` — grade both placeholder cards. Confirm a `ReviewState` row appears (Vercel → Storage → Database → Data tab).
 
 ## Card authoring format
 
