@@ -1,0 +1,17 @@
+[
+  {
+    "id": "II.A-sample-01",
+    "topic": "II.A",
+    "type": "basic",
+    "front": "PLACEHOLDER — replace once sources arrive. What peak aortic jet velocity defines severe aortic stenosis by 2020 ACC/AHA valvular guidelines?",
+    "back": "≥ 4.0 m/s (with mean gradient ≥ 40 mmHg and AVA ≤ 1.0 cm²).",
+    "source": "sample-card"
+  },
+  {
+    "id": "II.A-sample-02",
+    "topic": "II.A",
+    "type": "cloze",
+    "front": "PLACEHOLDER — severe AR by continuous-wave Doppler shows a pressure half-time of {{c1::< 200 ms}}.",
+    "source": "sample-card"
+  }
+]

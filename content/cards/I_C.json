@@ -1,0 +1,9 @@
+[
+  {
+    "id": "I.C-sample-01",
+    "topic": "I.C",
+    "type": "cloze",
+    "front": "PLACEHOLDER — Ultrasound wavelength = {{c1::propagation speed / frequency}}. In soft tissue speed averages {{c2::1540 m/s}}.",
+    "source": "sample-card"
+  }
+]
