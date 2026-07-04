@@ -54,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-6 py-6">{children}</main>
+        <main className="mx-auto max-w-6xl px-6">{children}</main>
         <footer className="border-t border-border mt-10">
           <div className="mx-auto max-w-6xl px-6 py-6 flex items-center justify-between text-[12px] text-muted">
             <span>Echo KB · Board review with FSRS</span>

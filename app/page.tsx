@@ -4,15 +4,6 @@ import { loadAllCards } from "@/lib/cards";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
-const SECTION_LABELS: Record<string, string> = {
-  I: "Physics · Instrumentation",
-  II: "Valvular Heart Disease",
-  III: "Chamber Size & Function",
-  IV: "Congenital Heart Disease",
-  V: "Masses · Pericardial · Contrast",
-  VI: "Miscellaneous (Role of Echo)",
-};
-
 export default async function Home() {
   const session = await auth();
   const cards = loadAllCards();
@@ -24,7 +15,6 @@ export default async function Home() {
     bySection.set(sec, (bySection.get(sec) ?? 0) + 1);
   }
 
-  // Compute stats when the user is signed in
   let stats: {
     seen: number;
     unseen: number;
@@ -76,192 +66,181 @@ export default async function Home() {
   }
 
   return (
-    <div className="space-y-8">
-      <section className="space-y-3">
-        <h1 className="text-2xl sm:text-3xl font-medium tracking-tightest max-w-2xl leading-[1.15]">
+    <div>
+      {/* Hero */}
+      <section className="pt-16 sm:pt-28 pb-20 sm:pb-32 text-center">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tightest leading-[1.02]">
           {stats
-            ? "Pick up where you left off."
-            : "A knowledge base for the echo boards."}
+            ? stats.dueNow > 0
+              ? <>Ready when you are.</>
+              : <>All caught up.</>
+            : <>Echo KB.</>}
         </h1>
-        <p className="text-[14px] text-muted max-w-xl leading-relaxed">
+        <p className="mt-5 text-[17px] sm:text-[19px] text-muted max-w-xl mx-auto leading-relaxed">
           {stats ? (
-            <>
-              <span className="tabular">{stats.dueNow}</span> card{stats.dueNow === 1 ? "" : "s"} due ·{" "}
-              <span className="tabular">{stats.unseen}</span> unseen ·{" "}
-              <span className="tabular">{stats.struggling}</span> to shore up
-            </>
+            stats.dueNow > 0 ? (
+              <>
+                <span className="tabular text-fg font-medium">{stats.dueNow}</span> card{stats.dueNow === 1 ? "" : "s"} due today.
+              </>
+            ) : stats.unseen > 0 ? (
+              <>
+                No cards due. Learn <span className="tabular text-fg font-medium">{stats.unseen}</span> new one{stats.unseen === 1 ? "" : "s"}?
+              </>
+            ) : (
+              <>Every card scheduled. See you tomorrow.</>
+            )
           ) : (
-            <>
-              {total} cards curated from guideline literature, indexed to the official ASE blueprint. FSRS scheduling underneath.
-            </>
+            <>Board-review flashcards, spaced by FSRS.</>
           )}
         </p>
-        <div className="flex flex-wrap items-center gap-2 pt-1">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px]">
           <Link
             href="/review"
-            className="inline-flex items-center gap-2 rounded-md bg-fg text-accent-fg px-4 py-2 text-[13px] font-medium hover:opacity-90 transition-opacity"
+            className="text-fg font-medium hover:opacity-70 transition-opacity"
           >
-            {stats && stats.dueNow > 0 ? `Review ${stats.dueNow} due` : "Start reviewing"} →
+            {stats && stats.dueNow > 0 ? "Review now" : "Start studying"} →
           </Link>
           <Link
-            href="/decks"
-            className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-[13px] font-medium hover:border-fg transition-colors"
+            href={stats ? "/decks" : "/about"}
+            className="text-muted hover:text-fg transition-colors"
           >
-            Browse
+            {stats ? "Browse the knowledge base" : "Learn more"} →
           </Link>
         </div>
       </section>
 
+      {/* Signed-in stats section */}
       {stats && (
-        <>
-          {/* KPI row */}
-          <section className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <StatTile label="Seen" value={stats.seen} total={total} />
-            <StatTile label="Mastered" value={stats.mastered} total={total} />
-            <StatTile label="Due" value={stats.dueNow} />
-            <StatTile label="Struggling" value={stats.struggling} />
-          </section>
-
-          {/* Progress bar */}
-          <section className="sheet p-4 space-y-3">
-            <div className="flex items-baseline justify-between">
-              <p className="eyebrow">Progress</p>
-              <p className="text-[11px] text-muted tabular">
-                {stats.seen} / {total} seen
+        <section className="border-t border-border pt-14 sm:pt-20 pb-16">
+          <div className="max-w-4xl mx-auto space-y-14">
+            {/* Overall progress */}
+            <div className="text-center space-y-5">
+              <p className="eyebrow">Your progress</p>
+              <div className="flex items-baseline justify-center gap-2">
+                <span className="text-6xl sm:text-7xl font-semibold tracking-tightest tabular">{stats.masteryPct}</span>
+                <span className="text-2xl text-muted tabular">%</span>
+              </div>
+              <p className="text-[14px] text-muted">
+                mastered ·{" "}
+                <span className="tabular">{stats.mastered}</span> of{" "}
+                <span className="tabular">{total}</span> cards
               </p>
-            </div>
-            <ProgressBar seenPct={stats.coveragePct} masteredPct={stats.masteryPct} />
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted">
-              <LegendDot tone="success">
-                <span className="tabular">{stats.masteryPct}%</span> mastered
-              </LegendDot>
-              <LegendDot tone="warning">
-                <span className="tabular">{Math.max(0, stats.coveragePct - stats.masteryPct)}%</span> needs review
-              </LegendDot>
-              <LegendDot tone="border">
-                <span className="tabular">{Math.max(0, 100 - stats.coveragePct)}%</span> new
-              </LegendDot>
-            </div>
-          </section>
-
-          {/* Per-section breakdown */}
-          <section>
-            <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
-              <p className="eyebrow">By section</p>
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted">
-                <LegendDot tone="success">mastered</LegendDot>
-                <LegendDot tone="warning">needs review</LegendDot>
-                <LegendDot tone="border">new</LegendDot>
+              <div className="max-w-lg mx-auto pt-3">
+                <ProgressBar seenPct={stats.coveragePct} masteredPct={stats.masteryPct} />
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-[12px] text-muted">
+                  <LegendDot tone="success">
+                    <span className="tabular">{stats.masteryPct}%</span> mastered
+                  </LegendDot>
+                  <LegendDot tone="warning">
+                    <span className="tabular">{Math.max(0, stats.coveragePct - stats.masteryPct)}%</span> in progress
+                  </LegendDot>
+                  <LegendDot tone="border">
+                    <span className="tabular">{Math.max(0, 100 - stats.coveragePct)}%</span> new
+                  </LegendDot>
+                </div>
               </div>
             </div>
-            <ul className="divide-y divide-border border-y border-border">
-              {BLUEPRINT.map((sec) => {
-                const s = stats!.perSection.get(sec.code)!;
-                const seenPct = s.total > 0 ? (s.seen / s.total) * 100 : 0;
-                const masteredPct = s.total > 0 ? (s.mastered / s.total) * 100 : 0;
-                return (
-                  <li key={sec.code}>
-                    <Link
-                      href={`/review?section=${sec.code}&status=smart&limit=30`}
-                      className="group flex items-center py-2.5 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
-                    >
-                      <span className="w-8 shrink-0 text-[12px] font-mono text-muted tabular">
-                        {sec.code}.
-                      </span>
-                      <div className="flex-1 min-w-0 pr-3">
-                        <div className="text-[13px] font-medium tracking-tight truncate group-hover:underline underline-offset-4 decoration-1">
-                          {sec.title}
-                        </div>
-                        <div className="mt-1.5 max-w-md">
-                          <ProgressBar seenPct={seenPct} masteredPct={masteredPct} />
-                        </div>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <div className="text-[12px] font-medium tabular">
-                          {s.mastered}
-                          <span className="text-muted"> / {s.total}</span>
-                        </div>
-                        <div className="text-[10px] text-muted tabular">
-                          {Math.round(masteredPct)}%
-                        </div>
-                      </div>
-                      <span className="pl-3 text-muted-soft group-hover:text-fg transition-colors" aria-hidden="true">→</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        </>
-      )}
 
-      {!stats && (
-        <section>
-          <div className="flex items-baseline justify-between mb-2">
-            <p className="eyebrow">Contents</p>
-            <p className="text-[11px] text-muted tabular">{total} cards · 65 subtopics</p>
+            {/* Compact KPI row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-6 text-center pt-2">
+              <Stat label="Seen" value={stats.seen} />
+              <Stat label="Mastered" value={stats.mastered} />
+              <Stat label="Due" value={stats.dueNow} />
+              <Stat label="Struggling" value={stats.struggling} />
+            </div>
           </div>
-          <ol className="divide-y divide-border border-y border-border">
-            {BLUEPRINT.map((sec) => (
-              <li key={sec.code}>
-                <Link
-                  href={`/kb/${sec.slug}`}
-                  className="group flex items-center py-3 hover:bg-bg-soft/60 px-2 -mx-2 rounded transition-colors"
-                >
-                  <span className="w-8 shrink-0 text-[12px] font-mono text-muted tabular">
-                    {sec.code}.
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[14px] font-medium tracking-tight group-hover:underline decoration-1 underline-offset-4">
-                      {sec.title}
-                    </div>
-                    <div className="text-[11px] text-muted mt-0.5">
-                      {SECTION_LABELS[sec.code]} · {sec.subtopics.length} subtopics
-                    </div>
-                  </div>
-                  <span className="text-[11px] text-muted tabular pl-3 shrink-0">
-                    {bySection.get(sec.code) ?? 0} cards
-                  </span>
-                  <span className="pl-3 text-muted-soft group-hover:text-fg transition-colors" aria-hidden="true">→</span>
-                </Link>
-              </li>
-            ))}
-          </ol>
         </section>
       )}
+
+      {/* By section */}
+      <section className="border-t border-border pt-14 sm:pt-20 pb-24">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <p className="eyebrow">The blueprint</p>
+            <h2 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tightest">
+              {stats ? "By section" : "Six domains, 857 cards."}
+            </h2>
+            {!stats && (
+              <p className="mt-3 text-[15px] text-muted max-w-lg mx-auto">
+                Every subtopic on the NBE&rsquo;s official ASCeXAM content outline, curated and reviewed.
+              </p>
+            )}
+          </div>
+          <ul className="divide-y divide-border border-y border-border">
+            {BLUEPRINT.map((sec) => {
+              const s = stats?.perSection.get(sec.code);
+              const seenPct = s && s.total > 0 ? (s.seen / s.total) * 100 : 0;
+              const masteredPct = s && s.total > 0 ? (s.mastered / s.total) * 100 : 0;
+              return (
+                <li key={sec.code}>
+                  <Link
+                    href={stats ? `/review?section=${sec.code}&status=smart&limit=30` : `/kb/${sec.slug}`}
+                    className="group flex items-center py-4 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
+                  >
+                    <span className="w-10 shrink-0 text-[13px] font-mono text-muted tabular">
+                      {sec.code}.
+                    </span>
+                    <div className="flex-1 min-w-0 pr-4">
+                      <div className="text-[15px] font-medium tracking-tight truncate group-hover:underline underline-offset-4 decoration-1">
+                        {sec.title}
+                      </div>
+                      {stats && s ? (
+                        <div className="mt-2 max-w-md">
+                          <ProgressBar seenPct={seenPct} masteredPct={masteredPct} />
+                        </div>
+                      ) : (
+                        <div className="text-[12px] text-muted mt-0.5">
+                          {sec.subtopics.length} subtopics
+                        </div>
+                      )}
+                    </div>
+                    <div className="text-right shrink-0">
+                      {stats && s ? (
+                        <>
+                          <div className="text-[13px] font-medium tabular">
+                            {s.mastered}
+                            <span className="text-muted"> / {s.total}</span>
+                          </div>
+                          <div className="text-[11px] text-muted tabular">
+                            {Math.round(masteredPct)}%
+                          </div>
+                        </>
+                      ) : (
+                        <div className="text-[13px] text-muted tabular">
+                          {bySection.get(sec.code) ?? 0} cards
+                        </div>
+                      )}
+                    </div>
+                    <span className="pl-4 text-muted-soft group-hover:text-fg transition-colors" aria-hidden="true">→</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }
 
-function StatTile({ label, value, total }: { label: string; value: number; total?: number }) {
+function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="sheet p-3">
-      <p className="eyebrow">{label}</p>
-      <div className="mt-1 flex items-baseline gap-1">
-        <span className="text-2xl font-medium tracking-tightest tabular">{value}</span>
-        {total !== undefined && (
-          <span className="text-[12px] text-muted tabular">/ {total}</span>
-        )}
-      </div>
+    <div>
+      <div className="text-3xl sm:text-4xl font-semibold tabular tracking-tightest">{value}</div>
+      <div className="mt-1 text-[12px] text-muted uppercase tracking-widest">{label}</div>
     </div>
   );
 }
 
 function ProgressBar({ seenPct, masteredPct }: { seenPct: number; masteredPct: number }) {
-  // Three-segment bar:
-  //   [0 → mastered%]        green   = mastered
-  //   [mastered → seen%]     amber   = started, needs review
-  //   [seen → 100%]          gray    = unseen
   const seen = Math.max(0, Math.min(100, seenPct));
   const mastered = Math.max(0, Math.min(100, masteredPct));
   return (
     <div className="relative h-[6px] rounded-full bg-border overflow-hidden">
-      {/* amber fill up to seen% — the visible "needs review" band shows between mastered and seen */}
       <div
         className="absolute inset-y-0 left-0 bg-warning transition-all duration-500"
         style={{ width: `${seen}%` }}
       />
-      {/* green fill up to mastered% */}
       <div
         className="absolute inset-y-0 left-0 bg-success transition-all duration-500"
         style={{ width: `${mastered}%` }}

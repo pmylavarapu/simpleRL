@@ -34,7 +34,7 @@ export default function AboutPage() {
       <section className="space-y-3">
         <p className="eyebrow">Sources</p>
         <p className="text-[15px] leading-relaxed">
-          Cards and notes were curated from aggregated notes from Cardiovascular Disease fellows at UCSD over the years. Notes were cross referenced with American Society of Echocardiography (ASE) criteria using Claude Opus 4.7 to ensure accuracy. There may still be mistakes. Please let us know if you find any!
+          Knowledge Base and flashcards were curated from notes shared by Cardiovascular Disease fellows at UCSD. Notes were then cross referenced with American Society of Echocardiography (ASE) guidelines using Claude Opus 4.7 to ensure accuracy. There may still be mistakes. Please let us know if you find any!
         </p>
       </section>
 
