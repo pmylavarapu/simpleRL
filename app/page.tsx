@@ -78,7 +78,6 @@ export default async function Home() {
   return (
     <div className="space-y-8">
       <section className="space-y-3">
-        <p className="eyebrow">ASCeXAM · Board Review</p>
         <h1 className="text-2xl sm:text-3xl font-medium tracking-tightest max-w-2xl leading-[1.15]">
           {stats
             ? "Pick up where you left off."
@@ -133,10 +132,10 @@ export default async function Home() {
             </div>
             <ProgressBar seenPct={stats.coveragePct} masteredPct={stats.masteryPct} />
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted">
-              <LegendDot tone="fg">
+              <LegendDot tone="success">
                 <span className="tabular">{stats.masteryPct}%</span> mastered
               </LegendDot>
-              <LegendDot tone="muted">
+              <LegendDot tone="warning">
                 <span className="tabular">{Math.max(0, stats.coveragePct - stats.masteryPct)}%</span> needs review
               </LegendDot>
               <LegendDot tone="border">
@@ -150,8 +149,8 @@ export default async function Home() {
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
               <p className="eyebrow">By section</p>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted">
-                <LegendDot tone="fg">mastered</LegendDot>
-                <LegendDot tone="muted">needs review</LegendDot>
+                <LegendDot tone="success">mastered</LegendDot>
+                <LegendDot tone="warning">needs review</LegendDot>
                 <LegendDot tone="border">new</LegendDot>
               </div>
             </div>
@@ -249,30 +248,31 @@ function StatTile({ label, value, total }: { label: string; value: number; total
 }
 
 function ProgressBar({ seenPct, masteredPct }: { seenPct: number; masteredPct: number }) {
-  // Three-segment bar in three tones of neutral:
-  //   [0 → mastered%]  solid black  = mastered
-  //   [mastered → seen%]  mid-gray  = started, needs review
-  //   [seen → 100%]  light track    = unseen
+  // Three-segment bar:
+  //   [0 → mastered%]        green   = mastered
+  //   [mastered → seen%]     amber   = started, needs review
+  //   [seen → 100%]          gray    = unseen
   const seen = Math.max(0, Math.min(100, seenPct));
   const mastered = Math.max(0, Math.min(100, masteredPct));
   return (
     <div className="relative h-[6px] rounded-full bg-border overflow-hidden">
-      {/* mid-gray fill up to seen% (the visible "needs review" band shows between mastered and seen) */}
+      {/* amber fill up to seen% — the visible "needs review" band shows between mastered and seen */}
       <div
-        className="absolute inset-y-0 left-0 bg-muted transition-all duration-500"
+        className="absolute inset-y-0 left-0 bg-warning transition-all duration-500"
         style={{ width: `${seen}%` }}
       />
-      {/* solid black fill up to mastered% */}
+      {/* green fill up to mastered% */}
       <div
-        className="absolute inset-y-0 left-0 bg-fg transition-all duration-500"
+        className="absolute inset-y-0 left-0 bg-success transition-all duration-500"
         style={{ width: `${mastered}%` }}
       />
     </div>
   );
 }
 
-function LegendDot({ tone, children }: { tone: "fg" | "muted" | "border"; children: React.ReactNode }) {
-  const cls = tone === "fg" ? "bg-fg" : tone === "muted" ? "bg-muted" : "bg-border";
+function LegendDot({ tone, children }: { tone: "success" | "warning" | "border"; children: React.ReactNode }) {
+  const cls =
+    tone === "success" ? "bg-success" : tone === "warning" ? "bg-warning" : "bg-border";
   return (
     <span className="flex items-center gap-1.5">
       <span className={`inline-block w-2 h-2 rounded-full ${cls}`} />

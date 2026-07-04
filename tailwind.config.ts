@@ -19,6 +19,10 @@ const config: Config = {
         "border-strong": "rgb(var(--border-strong) / <alpha-value>)",
         accent: "rgb(var(--accent) / <alpha-value>)",
         "accent-fg": "rgb(var(--accent-fg) / <alpha-value>)",
+        success: "rgb(var(--success) / <alpha-value>)",
+        "success-soft": "rgb(var(--success-soft) / <alpha-value>)",
+        warning: "rgb(var(--warning) / <alpha-value>)",
+        "warning-soft": "rgb(var(--warning-soft) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui"],

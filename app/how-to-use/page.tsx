@@ -70,11 +70,11 @@ export default function HowToUsePage() {
         </p>
         <ul className="text-[14px] leading-relaxed space-y-2 list-none">
           <li className="flex gap-3 items-center">
-            <span className="inline-block w-3 h-3 rounded-full bg-fg shrink-0" />
+            <span className="inline-block w-3 h-3 rounded-full bg-success shrink-0" />
             <span><strong>Mastered</strong> — in FSRS's Review state with zero lapses. You've reliably recalled these.</span>
           </li>
           <li className="flex gap-3 items-center">
-            <span className="inline-block w-3 h-3 rounded-full bg-muted shrink-0" />
+            <span className="inline-block w-3 h-3 rounded-full bg-warning shrink-0" />
             <span><strong>Needs review</strong> — seen but not yet stable. Learning, relearning, or previously lapsed cards.</span>
           </li>
           <li className="flex gap-3 items-center">
