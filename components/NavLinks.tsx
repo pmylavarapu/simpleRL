@@ -27,10 +27,10 @@ export function NavLinks() {
             key={item.href}
             href={item.href}
             aria-current={active ? "page" : undefined}
-            className={`px-2.5 py-1 rounded-md transition-colors ${
+            className={`px-2.5 py-1 rounded-md border transition-colors ${
               active
-                ? "text-fg bg-bg-soft"
-                : "text-muted hover:text-fg"
+                ? "text-fg border-border-strong bg-bg-soft"
+                : "text-muted border-transparent hover:text-fg hover:border-border"
             }`}
           >
             {item.label}
