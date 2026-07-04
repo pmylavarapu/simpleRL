@@ -8,7 +8,7 @@ export default function KBIndex() {
   for (const c of cards) countByTopic.set(c.topic, (countByTopic.get(c.topic) ?? 0) + 1);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-10">
+    <div className="max-w-4xl mx-auto space-y-10 px-6 py-10">
       <div className="space-y-3">
         <p className="eyebrow">Knowledge base</p>
         <h1 className="text-3xl font-medium tracking-tightest">The ASE blueprint, in one place.</h1>
@@ -38,7 +38,7 @@ export default function KBIndex() {
                       href={`/kb/${sec.slug}/${st.slug}`}
                       className="group flex items-center py-3.5 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
                     >
-                      <span className="w-14 shrink-0 text-[12px] font-mono text-muted tabular">
+                      <span className="w-14 shrink-0 text-[12px] text-muted tabular">
                         {st.code}
                       </span>
                       <span className="flex-1 text-[14px] group-hover:underline underline-offset-4 decoration-1">

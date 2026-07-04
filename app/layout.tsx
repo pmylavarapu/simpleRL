@@ -21,7 +21,7 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Echo KB",
-  description: "ASCeXAM board-review knowledge base with FSRS spaced repetition.",
+  description: "ASCeXAM board-review knowledge base with spaced repetition.",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -31,9 +31,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-screen antialiased">
         <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur">
           <div className="mx-auto max-w-6xl px-6 h-14 flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
-              <span className="inline-block w-2 h-2 rounded-full bg-fg" aria-hidden="true" />
-              Echo KB
+            <Link
+              href="/"
+              className="flex items-center hover:opacity-70 transition-opacity"
+              aria-label="Echo KB — Home"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/heart.svg"
+                alt="Echo KB"
+                width={24}
+                height={24}
+                className="w-6 h-6 block"
+              />
             </Link>
             <NavLinks />
             <div className="ml-auto text-[13px]">
@@ -54,10 +64,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-6">{children}</main>
-        <footer className="border-t border-border mt-10">
-          <div className="mx-auto max-w-6xl px-6 py-6 flex items-center justify-between text-[12px] text-muted">
-            <span>Echo KB · Board review with FSRS</span>
+        <main>{children}</main>
+        <footer className="border-t border-border bg-bg-soft">
+          <div className="mx-auto max-w-6xl px-6 py-5 flex items-center justify-between text-[12px] text-muted">
+            <span>Echo KB · Board review with spaced repetition</span>
             <span className="tabular">v0.1</span>
           </div>
         </footer>

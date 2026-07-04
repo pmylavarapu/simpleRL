@@ -50,6 +50,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   reviewStates  ReviewState[]
+  reviewEvents  ReviewEvent[]
   createdAt     DateTime  @default(now())
 }
 
@@ -88,4 +89,17 @@ model ReviewState {
 
   @@unique([userId, cardId])
   @@index([userId, due])
+}
+
+// Append-only log — one row per rating. Powers "reviews today" style counters.
+model ReviewEvent {
+  id         String   @id @default(cuid())
+  userId     String
+  cardId     String
+  grade      String   // "again" | "hard" | "good" | "easy"
+  reviewedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, reviewedAt])
 }

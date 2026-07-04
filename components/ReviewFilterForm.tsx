@@ -7,7 +7,7 @@ type Status = "smart" | "new" | "incorrect" | "all";
 type SectionCode = "all" | "I" | "II" | "III" | "IV" | "V" | "VI";
 
 const STATUS_LABELS: Record<Status, string> = {
-  smart: "FSRS",
+  smart: "Spaced repetition",
   new: "New cards",
   incorrect: "Incorrect only",
   all: "All cards",

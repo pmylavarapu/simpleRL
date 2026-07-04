@@ -44,12 +44,12 @@ html, body {
 
 /* Label style used above section titles, cards, and metadata */
 .eyebrow {
-  font-family: var(--font-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-family: inherit;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   font-size: 0.6875rem;      /* 11px */
   color: rgb(var(--muted));
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Custom focus ring — subtle and accessible */

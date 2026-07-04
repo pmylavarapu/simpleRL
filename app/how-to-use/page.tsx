@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function HowToUsePage() {
   return (
-    <div className="max-w-2xl mx-auto space-y-14 py-6">
+    <div className="max-w-4xl mx-auto space-y-12 px-6 py-10">
       <header className="space-y-3">
         <p className="eyebrow">How to use</p>
         <h1 className="text-3xl sm:text-4xl font-medium tracking-tightest leading-[1.1]">
@@ -45,19 +45,19 @@ export default function HowToUsePage() {
         </p>
         <ul className="text-[15px] leading-relaxed space-y-3 list-none">
           <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">FSRS</span>
+            <span className="text-muted text-[12px] w-28 shrink-0 pt-1 uppercase tracking-wider">FSRS</span>
             <span className="flex-1">The recommended default. Due-scheduled cards first, new cards mixed in as capacity allows. This is what you'll want most days.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">New</span>
+            <span className="text-muted text-[12px] w-28 shrink-0 pt-1 uppercase tracking-wider">New</span>
             <span className="flex-1">Only cards you've never reviewed. Useful when you want to seed a new section before the scheduler starts folding it in.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">Incorrect</span>
+            <span className="text-muted text-[12px] w-28 shrink-0 pt-1 uppercase tracking-wider">Incorrect</span>
             <span className="flex-1">Only cards you've missed or that have lapsed. A quick cleanup pass before an exam block.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">All</span>
+            <span className="text-muted text-[12px] w-28 shrink-0 pt-1 uppercase tracking-wider">All</span>
             <span className="flex-1">Every card in the selected section, regardless of state. Handy for skimming a whole domain.</span>
           </li>
         </ul>

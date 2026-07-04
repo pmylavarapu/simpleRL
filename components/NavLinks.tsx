@@ -11,7 +11,7 @@ const ITEMS: Item[] = [
   { href: "/how-to-use", label: "How to use", match: (p) => p === "/how-to-use" },
   {
     href: "/decks",
-    label: "Knowledge base",
+    label: "Knowledge Base",
     match: (p) => p === "/decks" || p.startsWith("/kb"),
   },
 ];

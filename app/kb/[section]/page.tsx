@@ -19,14 +19,14 @@ export default async function SectionPage({ params }: { params: Promise<{ sectio
   const totalCards = section.subtopics.reduce((sum, st) => sum + (countByTopic.get(st.code) ?? 0), 0);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-10">
+    <div className="max-w-4xl mx-auto space-y-10 px-6 py-10">
       <div className="space-y-3">
         <Link href="/kb" className="eyebrow hover:text-fg transition-colors inline-block">← Knowledge base</Link>
-        <div className="flex items-baseline gap-3 pt-1">
-          <span className="text-[13px] font-mono text-muted tabular">{section.code}.</span>
-          <h1 className="text-3xl font-medium tracking-tightest">{section.title}</h1>
+        <div className="pt-3 space-y-1.5">
+          <div className="text-[13px] text-muted tabular">{section.code}</div>
+          <h1 className="text-3xl font-medium tracking-tightest leading-[1.15]">{section.title}</h1>
         </div>
-        <p className="text-[13px] text-muted">
+        <p className="text-[13px] text-muted pt-1">
           {section.subtopics.length} subtopics · {totalCards} cards
         </p>
       </div>
@@ -40,7 +40,7 @@ export default async function SectionPage({ params }: { params: Promise<{ sectio
                 href={`/kb/${section.slug}/${st.slug}`}
                 className="group flex items-center py-4 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
               >
-                <span className="w-14 shrink-0 text-[12px] font-mono text-muted tabular">
+                <span className="w-14 shrink-0 text-[12px] text-muted tabular">
                   {st.code}
                 </span>
                 <span className="flex-1 text-[15px] font-medium tracking-tight group-hover:underline underline-offset-4 decoration-1">
