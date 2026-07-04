@@ -33,10 +33,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <div className="mx-auto max-w-6xl px-6 h-14 flex items-center gap-8">
             <Link
               href="/"
-              className="flex items-center text-xl leading-none hover:opacity-70 transition-opacity"
+              className="flex items-center hover:opacity-70 transition-opacity"
               aria-label="Echo KB — Home"
             >
-              <span role="img" aria-label="Anatomical heart">🫀</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/heart.svg"
+                alt="Echo KB"
+                width={24}
+                height={24}
+                className="w-6 h-6 block"
+              />
             </Link>
             <NavLinks />
             <div className="ml-auto text-[13px]">
