@@ -123,13 +123,29 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
   }, [submitGrade]);
 
   if (done || !card) {
+    const totalGraded = stats.again + stats.hard + stats.good + stats.easy;
+    const correct = stats.good + stats.easy;
+    const pctCorrect = totalGraded ? Math.round((correct / totalGraded) * 100) : 0;
     return (
-      <div className="border border-border rounded-lg p-6 text-center space-y-4">
-        <div className="text-lg font-medium">Session complete</div>
-        <div className="text-sm text-muted">
-          Again {stats.again} · Hard {stats.hard} · Good {stats.good} · Easy {stats.easy}
+      <div className="sheet p-10 text-center space-y-6">
+        <p className="eyebrow">Session complete</p>
+        <div className="text-5xl font-medium tracking-tightest tabular">{pctCorrect}%</div>
+        <p className="text-[13px] text-muted">
+          {correct} of {totalGraded} rated Good or Easy
+        </p>
+        <div className="grid grid-cols-4 gap-2 pt-2">
+          {(["again", "hard", "good", "easy"] as Grade[]).map((g) => (
+            <div key={g} className="border border-border rounded-md py-3">
+              <div className="text-[11px] text-muted uppercase tracking-wider">{g}</div>
+              <div className="text-lg font-medium tabular mt-1">{stats[g]}</div>
+            </div>
+          ))}
         </div>
-        <a href="/review" className="inline-block underline">Start another session</a>
+        <div className="pt-4">
+          <a href="/review" className="inline-flex items-center gap-2 rounded-md bg-fg text-accent-fg px-5 py-2.5 text-[14px] font-medium hover:opacity-90 transition-opacity">
+            Start another session →
+          </a>
+        </div>
       </div>
     );
   }
@@ -139,35 +155,53 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
     if (e.key === " " || e.code === "Space") e.preventDefault();
   }
 
+  const progressPct = (idx / queue.length) * 100;
+
   return (
-    <div className="space-y-4">
-      <div className="text-xs text-muted text-right">
-        {idx + 1} / {queue.length} · {card.topic}
+    <div className="space-y-5">
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-[3px] bg-border rounded-full overflow-hidden">
+          <div
+            className="h-full bg-fg transition-all duration-300"
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+        <div className="text-[11px] text-muted tabular shrink-0">
+          {idx + 1} / {queue.length}
+        </div>
       </div>
 
-      <div className="border border-border rounded-lg p-6 min-h-[220px] flex items-center justify-center text-center">
-        {card.type === "basic" ? (
-          <div className="text-lg leading-relaxed">
-            {!revealed ? card.front : (
-              <>
-                <div className="mb-3">{card.front}</div>
-                <div className="border-t border-border pt-3 mt-3 text-fg">{card.back}</div>
-              </>
-            )}
-          </div>
-        ) : (
-          <ClozeView front={card.front} clozeIdx={clozeIdx} revealed={revealed} />
-        )}
+      <div className="sheet p-8 sm:p-10 min-h-[280px] flex flex-col justify-center">
+        <div className="text-center">
+          <p className="eyebrow mb-6">{card.topic}</p>
+          {card.type === "basic" ? (
+            <div className="text-[18px] sm:text-[19px] leading-relaxed tracking-tight text-fg-strong">
+              {!revealed ? (
+                card.front
+              ) : (
+                <>
+                  <div className="mb-6">{card.front}</div>
+                  <div className="pt-6 border-t border-border text-fg text-left sm:text-center">
+                    {card.back}
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <ClozeView front={card.front} clozeIdx={clozeIdx} revealed={revealed} />
+          )}
+        </div>
       </div>
 
       {!revealed ? (
         <button
           type="button"
           onKeyDown={stopButtonSpace}
-          className="w-full rounded-md bg-accent text-white py-2 font-medium hover:opacity-90"
+          className="w-full rounded-md bg-fg text-accent-fg py-3.5 text-[14px] font-medium hover:opacity-90 transition-opacity"
           onClick={() => setRevealed(true)}
         >
-          Show answer (Space)
+          Show answer
+          <span className="ml-2 opacity-60 text-[11px] tabular">SPACE</span>
         </button>
       ) : (
         <div className="grid grid-cols-4 gap-2">
@@ -178,17 +212,17 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
               disabled={submitting}
               onKeyDown={stopButtonSpace}
               onClick={() => submitGrade(g)}
-              className="rounded-md border border-border py-2 text-sm hover:border-accent disabled:opacity-50"
+              className="rounded-md border border-border py-3 text-[13px] hover:border-fg disabled:opacity-40 transition-colors"
             >
               <div className="font-medium">{GRADE_LABEL[g]}</div>
-              <div className="text-[10px] text-muted">{i + 1}</div>
+              <div className="text-[10px] text-muted tabular mt-0.5">{i + 1}</div>
             </button>
           ))}
         </div>
       )}
 
-      <div className="text-xs text-muted text-center">
-        Keys: Space/Enter reveal · 1 Again · 2 Hard · 3 Good · 4 Easy
+      <div className="text-[11px] text-muted text-center tabular">
+        SPACE reveal · 1 again · 2 hard · 3 good · 4 easy
       </div>
     </div>
   );

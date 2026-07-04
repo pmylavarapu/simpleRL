@@ -38,10 +38,15 @@ export default async function ReviewPage({
   const session = await auth();
   if (!session?.user) {
     return (
-      <div className="max-w-md mx-auto space-y-3">
-        <h1 className="text-2xl font-semibold">Sign in to review</h1>
-        <p className="text-muted">Your FSRS progress is saved to your account.</p>
-        <Link href="/signin" className="underline">Sign in with Google</Link>
+      <div className="max-w-md mx-auto sheet p-8 text-center space-y-3">
+        <p className="eyebrow">Restricted</p>
+        <h1 className="text-2xl font-medium tracking-tight">Sign in to review</h1>
+        <p className="text-[13px] text-muted">Your FSRS progress is saved to your account.</p>
+        <div className="pt-2">
+          <Link href="/signin" className="inline-flex items-center gap-2 rounded-md bg-fg text-accent-fg px-5 py-2.5 text-[14px] font-medium hover:opacity-90 transition-opacity">
+            Sign in with Google →
+          </Link>
+        </div>
       </div>
     );
   }
@@ -73,7 +78,6 @@ export default async function ReviewPage({
     return false;
   }
 
-  // Build counts for every (section × status) combination for the client component.
   const countsBySection = Object.fromEntries(
     SECTIONS.map((sec) => {
       const inSec = cardsInSection(sec);
@@ -87,10 +91,13 @@ export default async function ReviewPage({
   if (!start) {
     return (
       <div className="max-w-3xl mx-auto space-y-8">
-        <div>
-          <h1 className="text-2xl font-semibold">Review</h1>
-          <p className="text-muted">
-            Pick a section and filter, then start. FSRS runs underneath — cards you miss come back sooner, cards you know drift further out.
+        <div className="space-y-3">
+          <p className="eyebrow">Review</p>
+          <h1 className="text-3xl font-medium tracking-tightest">
+            Pick your set.
+          </h1>
+          <p className="text-[14px] text-muted max-w-xl leading-relaxed">
+            Choose a section, filter, and session size. FSRS runs underneath — miss a card and it comes back sooner.
           </p>
         </div>
 
@@ -99,27 +106,14 @@ export default async function ReviewPage({
           countsBySection={countsBySection}
         />
 
-        <details className="text-sm text-muted">
-          <summary className="cursor-pointer">What each filter means</summary>
-          <ul className="list-disc pl-5 mt-2 space-y-1">
-            <li><strong>Due today</strong> — cards FSRS says are ready, plus never-seen cards.</li>
-            <li><strong>New / unseen</strong> — cards you've never reviewed.</li>
-            <li><strong>Struggling</strong> — cards you recently rated Again or Hard, or that have lapsed.</li>
-            <li><strong>Known</strong> — cards in the FSRS Review state (stable).</li>
-            <li><strong>All</strong> — every card in the selected section.</li>
-          </ul>
-        </details>
-
-        <div className="text-sm">
-          <Link href="/kb" className="underline">Browse the knowledge base</Link>
-          {" · "}
-          <Link href="/decks" className="underline">Deck breakdown</Link>
+        <div className="text-[13px] text-muted flex items-center gap-6">
+          <Link href="/kb" className="hover:text-fg transition-colors">Browse the KB →</Link>
+          <Link href="/decks" className="hover:text-fg transition-colors">Deck breakdown →</Link>
         </div>
       </div>
     );
   }
 
-  // Build the session queue for the selected filters.
   const filtered = cardsInSection(section).filter((c) => matchesStatus(c.id, status));
 
   const dueIds = filtered
@@ -145,19 +139,23 @@ export default async function ReviewPage({
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4">
+    <div className="max-w-2xl mx-auto space-y-6">
       <div className="flex items-baseline justify-between">
-        <h1 className="text-2xl font-semibold">Review</h1>
-        <Link href="/review" className="text-sm underline text-muted">Change filters</Link>
-      </div>
-      <div className="text-sm text-muted">
-        {section === "all" ? "All sections" : `Section ${section}`} · {STATUS_LABELS[status]} · {queueCards.length} card{queueCards.length === 1 ? "" : "s"}
+        <div>
+          <p className="eyebrow">
+            {section === "all" ? "All sections" : `Section ${section}`} · {STATUS_LABELS[status]}
+          </p>
+          <div className="text-[13px] text-muted mt-1 tabular">
+            {queueCards.length} card{queueCards.length === 1 ? "" : "s"} in this session
+          </div>
+        </div>
+        <Link href="/review" className="text-[12px] text-muted hover:text-fg transition-colors">← Change filters</Link>
       </div>
       {queueCards.length === 0 ? (
-        <div className="border border-dashed border-border rounded p-6 text-center text-muted">
+        <div className="sheet p-10 text-center text-[13px] text-muted">
           No cards match this filter right now.
-          <div className="mt-3">
-            <Link href="/review" className="underline">Change filters</Link>
+          <div className="mt-4">
+            <Link href="/review" className="underline hover:no-underline">Change filters</Link>
           </div>
         </div>
       ) : (

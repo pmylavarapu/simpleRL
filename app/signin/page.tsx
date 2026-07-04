@@ -6,12 +6,13 @@ export default async function SignInPage() {
   if (session?.user) redirect("/");
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-6">
-      <div className="max-w-sm w-full border border-border rounded-lg p-6 space-y-4">
-        <h1 className="text-xl font-semibold">Sign in to ASE Echo KB</h1>
-        <p className="text-sm text-muted">
-          Your review progress is saved to your Google account.
-        </p>
+    <div className="max-w-sm mx-auto pt-12 space-y-6">
+      <div className="text-center space-y-2">
+        <p className="eyebrow">Access</p>
+        <h1 className="text-2xl font-medium tracking-tightest">Sign in to ASE Echo</h1>
+        <p className="text-[13px] text-muted">Your FSRS progress is saved to your Google account.</p>
+      </div>
+      <div className="sheet p-6">
         <form
           action={async () => {
             "use server";
@@ -20,12 +21,15 @@ export default async function SignInPage() {
         >
           <button
             type="submit"
-            className="w-full rounded-md bg-accent text-white py-2 font-medium hover:opacity-90"
+            className="w-full rounded-md bg-fg text-accent-fg py-3 text-[14px] font-medium hover:opacity-90 transition-opacity"
           >
             Continue with Google
           </button>
         </form>
       </div>
-    </main>
+      <p className="text-[11px] text-muted text-center">
+        No third-party trackers. Progress stays in your account.
+      </p>
+    </div>
   );
 }

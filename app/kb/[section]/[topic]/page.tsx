@@ -24,44 +24,51 @@ export default async function TopicPage({
   const cards = cardsForTopic(subtopic.code);
 
   return (
-    <div className="space-y-8">
-      <div>
-        <Link href={`/kb/${section.slug}`} className="text-sm text-muted hover:text-fg">
-          ← {section.code}. {section.title}
+    <div className="max-w-3xl mx-auto space-y-12">
+      <header className="space-y-3">
+        <Link href={`/kb/${section.slug}`} className="eyebrow hover:text-fg transition-colors inline-block">
+          ← Section {section.code} · {section.title}
         </Link>
-        <h1 className="text-2xl font-semibold mt-2">
-          {subtopic.code} — {subtopic.title}
-        </h1>
-      </div>
+        <div className="flex items-baseline gap-3 pt-1">
+          <span className="text-[13px] font-mono text-muted tabular">{subtopic.code}</span>
+          <h1 className="text-3xl font-medium tracking-tightest">{subtopic.title}</h1>
+        </div>
+        <p className="text-[13px] text-muted tabular">
+          {cards.length} card{cards.length === 1 ? "" : "s"}
+        </p>
+      </header>
 
       <section>
-        <h2 className="text-lg font-semibold mb-2">Notes</h2>
+        <p className="eyebrow mb-4">Notes</p>
         {note.exists ? (
           <article className="prose prose-neutral max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{note.content}</ReactMarkdown>
           </article>
         ) : (
-          <div className="text-sm text-muted border border-dashed border-border rounded p-4">
-            No notes yet for this subtopic. Notes will be added as sources arrive.
+          <div className="sheet p-8 text-center text-[13px] text-muted">
+            No notes yet for this subtopic.
           </div>
         )}
       </section>
 
       <section>
-        <h2 className="text-lg font-semibold mb-2">Cards ({cards.length})</h2>
+        <p className="eyebrow mb-4">Cards</p>
         {cards.length === 0 ? (
-          <div className="text-sm text-muted border border-dashed border-border rounded p-4">
+          <div className="sheet p-8 text-center text-[13px] text-muted">
             No cards yet for this subtopic.
           </div>
         ) : (
           <ul className="space-y-2">
             {cards.map((c) => (
-              <li key={c.id} className="border border-border rounded p-3">
-                <div className="text-xs text-muted mb-1">
-                  {c.type.toUpperCase()} · {c.id}
+              <li key={c.id} className="sheet p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider font-medium ${c.type === "cloze" ? "bg-fg text-accent-fg" : "border border-border text-muted"}`}>
+                    {c.type}
+                  </span>
+                  <span className="text-[11px] text-muted font-mono tabular">{c.id}</span>
                 </div>
-                <div className="text-sm">{c.front}</div>
-                {c.back && <div className="text-sm text-muted mt-1">→ {c.back}</div>}
+                <div className="text-[14px] leading-relaxed">{c.front}</div>
+                {c.back && <div className="text-[14px] text-muted mt-2 leading-relaxed">→ {c.back}</div>}
               </li>
             ))}
           </ul>

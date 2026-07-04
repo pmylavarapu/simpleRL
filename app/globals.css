@@ -3,15 +3,80 @@
 @tailwind utilities;
 
 :root {
+  /* Neutral palette — warm-neutral grays for a premium editorial feel */
   --bg: 255 255 255;
-  --fg: 17 24 39;
-  --muted: 107 114 128;
-  --border: 229 231 235;
-  --accent: 37 99 235;
+  --bg-soft: 250 250 249;      /* subtle off-white for panels */
+  --fg: 12 12 12;              /* near-black */
+  --fg-strong: 0 0 0;
+  --muted: 115 115 115;        /* neutral-500 */
+  --muted-soft: 163 163 163;   /* neutral-400 */
+  --border: 229 229 229;       /* neutral-200 */
+  --border-strong: 212 212 212;/* neutral-300 */
+  --accent: 12 12 12;          /* accent = near-black in the B&W system */
+  --accent-fg: 255 255 255;
+  --focus: 96 96 96;
   color-scheme: light;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11", "cv02", "cv09";
 }
 
 html, body {
   background-color: rgb(var(--bg));
   color: rgb(var(--fg));
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* Numeric-heavy elements get tabular figures for perfect alignment */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Label style used above section titles, cards, and metadata */
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6875rem;      /* 11px */
+  color: rgb(var(--muted));
+  font-weight: 500;
+}
+
+/* Custom focus ring — subtle and accessible */
+*:focus-visible {
+  outline: 2px solid rgb(var(--focus));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Prose adjustments — the KB notes render through react-markdown */
+.prose {
+  --tw-prose-body: rgb(var(--fg));
+  --tw-prose-headings: rgb(var(--fg-strong));
+  --tw-prose-links: rgb(var(--fg-strong));
+  --tw-prose-bold: rgb(var(--fg-strong));
+  --tw-prose-quotes: rgb(var(--fg));
+  --tw-prose-code: rgb(var(--fg-strong));
+  --tw-prose-hr: rgb(var(--border));
+  --tw-prose-th-borders: rgb(var(--border-strong));
+  --tw-prose-td-borders: rgb(var(--border));
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.prose h2 { font-weight: 600; letter-spacing: -0.01em; margin-top: 2em; }
+.prose h3 { font-weight: 600; letter-spacing: -0.005em; }
+.prose table { font-size: 0.875rem; }
+.prose code { font-weight: 500; background: rgb(var(--bg-soft)); padding: 0.1em 0.35em; border-radius: 3px; border: 1px solid rgb(var(--border)); }
+.prose pre { background: rgb(var(--bg-soft)); border: 1px solid rgb(var(--border)); }
+
+/* Subtle 'sheet' surface for elevated cards */
+.sheet {
+  background: rgb(var(--bg));
+  border: 1px solid rgb(var(--border));
+  border-radius: 10px;
 }
