@@ -3,23 +3,21 @@
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
-type Status = "due" | "unseen" | "struggling" | "known" | "all";
+type Status = "smart" | "new" | "incorrect" | "all";
 type SectionCode = "all" | "I" | "II" | "III" | "IV" | "V" | "VI";
 
 const STATUS_LABELS: Record<Status, string> = {
-  due: "Due today",
-  unseen: "New / unseen",
-  struggling: "Struggling",
-  known: "Known",
+  smart: "FSRS",
+  new: "New cards",
+  incorrect: "Incorrect only",
   all: "All cards",
 };
 
 const STATUS_HINT: Record<Status, string> = {
-  due: "FSRS says ready",
-  unseen: "Never reviewed",
-  struggling: "Recent Again or Hard, or has lapsed",
-  known: "In the FSRS Review state",
-  all: "Every card in the section",
+  smart: "Teach me what I don't know — due cards first, new cards mixed in.",
+  new: "Cards you've never reviewed.",
+  incorrect: "Cards you've missed or that have lapsed.",
+  all: "Every card in the selected section.",
 };
 
 const SECTION_LABELS: Record<SectionCode, string> = {
@@ -95,23 +93,25 @@ export function ReviewFilterForm({
       </div>
 
       <div>
-        <p className="eyebrow mb-3">Filter</p>
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+        <p className="eyebrow mb-3">Mode</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {(Object.entries(STATUS_LABELS) as [Status, string][]).map(([s, label]) => (
             <button
               key={s}
               type="button"
               onClick={() => setStatus(s)}
               aria-pressed={status === s}
-              className={`text-left rounded-md border px-3 py-3 transition-all ${
+              className={`text-left rounded-md border px-4 py-3 transition-all ${
                 status === s
                   ? "border-fg bg-fg text-accent-fg"
                   : "border-border hover:border-fg"
               }`}
             >
-              <div className="text-[13px] font-medium">{label}</div>
-              <div className={`text-[11px] tabular mt-1 ${status === s ? "opacity-70" : "text-muted"}`}>
-                {counts[s]} cards
+              <div className="flex items-baseline justify-between gap-3">
+                <div className="text-[14px] font-medium">{label}</div>
+                <div className={`text-[12px] tabular ${status === s ? "opacity-70" : "text-muted"}`}>
+                  {counts[s]}
+                </div>
               </div>
             </button>
           ))}

@@ -160,7 +160,7 @@ export default async function Home() {
                 return (
                   <li key={sec.code}>
                     <Link
-                      href={`/review?section=${sec.code}&status=due&limit=30`}
+                      href={`/review?section=${sec.code}&status=smart&limit=30`}
                       className="group flex items-center py-4 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
                     >
                       <span className="w-10 shrink-0 text-[13px] font-mono text-muted tabular">

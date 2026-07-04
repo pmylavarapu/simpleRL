@@ -5,15 +5,14 @@ import { loadAllCards } from "@/lib/cards";
 import { ReviewSession } from "@/components/ReviewSession";
 import { ReviewFilterForm, type SectionCounts } from "@/components/ReviewFilterForm";
 
-type Status = "due" | "unseen" | "struggling" | "known" | "all";
+type Status = "smart" | "new" | "incorrect" | "all";
 type SectionCode = "all" | "I" | "II" | "III" | "IV" | "V" | "VI";
 
 const STATUS_LABELS: Record<Status, string> = {
-  due: "Due today",
-  unseen: "New / unseen",
-  struggling: "Struggling",
-  known: "Known",
-  all: "All",
+  smart: "FSRS",
+  new: "New cards",
+  incorrect: "Incorrect only",
+  all: "All cards",
 };
 
 function parseParam<T extends string>(v: string | string[] | undefined, allowed: readonly T[], fallback: T): T {
@@ -23,7 +22,7 @@ function parseParam<T extends string>(v: string | string[] | undefined, allowed:
 }
 
 const SECTIONS: readonly SectionCode[] = ["all", "I", "II", "III", "IV", "V", "VI"];
-const STATUSES: readonly Status[] = ["due", "unseen", "struggling", "known", "all"];
+const STATUSES: readonly Status[] = ["smart", "new", "incorrect", "all"];
 
 export default async function ReviewPage({
   searchParams,
@@ -54,7 +53,7 @@ export default async function ReviewPage({
   const userId = (session.user as { id?: string }).id!;
   const params = await searchParams;
   const section = parseParam<SectionCode>(params.section, SECTIONS, "all");
-  const status = parseParam<Status>(params.status, STATUSES, "due");
+  const status = parseParam<Status>(params.status, STATUSES, "smart");
   const limit = Math.min(Math.max(parseInt(params.limit ?? "30", 10) || 30, 1), 500);
   const start = params.start === "1";
 
@@ -69,12 +68,14 @@ export default async function ReviewPage({
 
   function matchesStatus(cardId: string, st: Status): boolean {
     const s = stateByCardId.get(cardId);
-    if (st === "unseen") return !s;
     if (st === "all") return true;
-    if (!s) return st === "due";
-    if (st === "due") return s.due.getTime() <= now.getTime();
-    if (st === "struggling") return s.state === 1 || s.state === 3 || s.lapses >= 1;
-    if (st === "known") return s.state === 2;
+    if (st === "new") return !s;
+    if (st === "incorrect") return !!s && (s.state === 1 || s.state === 3 || s.lapses >= 1);
+    // "smart" = FSRS mix: due-scheduled cards + new (never-seen) cards.
+    if (st === "smart") {
+      if (!s) return true;
+      return s.due.getTime() <= now.getTime();
+    }
     return false;
   }
 
