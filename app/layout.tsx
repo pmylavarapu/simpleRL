@@ -35,9 +35,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               ASE Echo
             </Link>
             <nav className="hidden sm:flex items-center gap-6 text-[13px] text-muted">
-              <Link href="/kb" className="hover:text-fg transition-colors">Knowledge base</Link>
               <Link href="/review" className="hover:text-fg transition-colors">Review</Link>
               <Link href="/decks" className="hover:text-fg transition-colors">Decks</Link>
+              <Link href="/about" className="hover:text-fg transition-colors">About</Link>
             </nav>
             <div className="ml-auto text-[13px]">
               {session?.user ? (
