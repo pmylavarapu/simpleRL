@@ -33,6 +33,7 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
   const [revealed, setRevealed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [flash, setFlash] = useState<Grade | null>(null);
   const [stats, setStats] = useState<Record<Grade, number>>({
     again: 0,
     hard: 0,
@@ -67,6 +68,8 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
     if (!currentCard) return;
     submittingRef.current = true;
     setSubmitting(true);
+    setFlash(grade);
+    const flashDelay = new Promise<void>((resolve) => setTimeout(resolve, 320));
     try {
       const res = await fetch("/api/review", {
         method: "POST",
@@ -74,6 +77,7 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
         body: JSON.stringify({ cardId: currentCard.id, grade }),
       });
       if (!res.ok) throw new Error(`grade failed: ${res.status}`);
+      await flashDelay;
       setStats((s) => ({ ...s, [grade]: s[grade] + 1 }));
       if (idxRef.current + 1 >= queueLenRef.current) {
         setDone(true);
@@ -84,6 +88,7 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
     } finally {
       submittingRef.current = false;
       setSubmitting(false);
+      setFlash(null);
     }
   }, []);
 
@@ -171,7 +176,7 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
         </div>
       </div>
 
-      <div className="sheet p-8 sm:p-10 min-h-[280px] flex flex-col justify-center">
+      <div className={`sheet p-8 sm:p-10 min-h-[280px] flex flex-col justify-center transition-colors duration-200 ${flashClass(flash)}`}>
         <div className="text-center">
           <p className="eyebrow mb-6">{card.topic}</p>
           {card.type === "basic" ? (
@@ -226,6 +231,23 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
       </div>
     </div>
   );
+}
+
+function flashClass(grade: Grade | null): string {
+  // Skip red on Again — flash amber for both Again and Hard so the user
+  // gets a "needs review" signal without a harsh incorrect-answer feel.
+  // Good / Easy land on green (correct → on the way to mastered).
+  switch (grade) {
+    case "again":
+    case "hard":
+      return "bg-amber-50 border-amber-400";
+    case "good":
+      return "bg-emerald-50 border-emerald-400";
+    case "easy":
+      return "bg-emerald-100 border-emerald-500";
+    default:
+      return "";
+  }
 }
 
 function ClozeView({
