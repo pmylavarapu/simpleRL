@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { auth, signOut } from "@/lib/auth";
+import { NavLinks } from "@/components/NavLinks";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -19,7 +20,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ASE Echo KB",
+  title: "Echo KB",
   description: "ASCeXAM board-review knowledge base with FSRS spaced repetition.",
 };
 
@@ -32,13 +33,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <div className="mx-auto max-w-6xl px-6 h-14 flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
               <span className="inline-block w-2 h-2 rounded-full bg-fg" aria-hidden="true" />
-              ASE Echo
+              Echo KB
             </Link>
-            <nav className="hidden sm:flex items-center gap-6 text-[13px] text-muted">
-              <Link href="/review" className="hover:text-fg transition-colors">Review</Link>
-              <Link href="/decks" className="hover:text-fg transition-colors">Decks</Link>
-              <Link href="/about" className="hover:text-fg transition-colors">About</Link>
-            </nav>
+            <NavLinks />
             <div className="ml-auto text-[13px]">
               {session?.user ? (
                 <form
@@ -57,10 +54,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
-        <footer className="border-t border-border mt-16">
+        <main className="mx-auto max-w-6xl px-6 py-6">{children}</main>
+        <footer className="border-t border-border mt-10">
           <div className="mx-auto max-w-6xl px-6 py-6 flex items-center justify-between text-[12px] text-muted">
-            <span>ASE Echo · Board review with FSRS</span>
+            <span>Echo KB · Board review with FSRS</span>
             <span className="tabular">v0.1</span>
           </div>
         </footer>

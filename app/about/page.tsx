@@ -25,54 +25,17 @@ export default function AboutPage() {
             A spaced-repetition review deck and companion knowledge base for the Adult Comprehensive Echocardiography exam. Cards distill high-yield facts from board-review study guides and guideline documents; each links back to a note page for context.
           </p>
           <p>
-            Nothing here is proprietary content. Cards were curated from open study material and cross-checked against published guidelines (ASE 2016 Nagueh, ASE 2017 Zoghbi, 2020 ACC/AHA VHD, 2020 AHA/ACC HCM, ASE 2010 Rudski, 2016 Baumgartner/ASE AS, Duke IE, and others).
+            For a walkthrough of the daily loop, review modes, and keyboard shortcuts, see the{" "}
+            <Link href="/how-to-use" className="underline underline-offset-4 decoration-1">How to use</Link> page.
           </p>
         </div>
       </section>
 
       <section className="space-y-3">
-        <p className="eyebrow">How review works</p>
-        <div className="text-[15px] leading-relaxed space-y-3">
-          <p>
-            Reviews are scheduled with <span className="font-medium">FSRS</span> — the algorithm behind modern Anki. After each card you rate it Again, Hard, Good, or Easy; the scheduler adapts the next interval to your recall.
-          </p>
-          <p>
-            Cards you miss come back sooner. Cards you know drift further out. Over a few sessions the mix shifts to what you need to work on.
-          </p>
-        </div>
-      </section>
-
-      <section className="space-y-3">
-        <p className="eyebrow">Modes</p>
-        <ul className="text-[15px] leading-relaxed space-y-3 list-none">
-          <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">FSRS</span>
-            <span className="flex-1">The default. Cards scheduled by the algorithm plus new ones mixed in — the fastest path to knowing what you don't know.</span>
-          </li>
-          <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">New</span>
-            <span className="flex-1">Cards you've never reviewed.</span>
-          </li>
-          <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">Incorrect</span>
-            <span className="flex-1">Cards you've missed recently or that have lapsed. Useful for a quick cleanup pass.</span>
-          </li>
-          <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">All</span>
-            <span className="flex-1">Every card in the selected section.</span>
-          </li>
-        </ul>
-      </section>
-
-      <section className="space-y-3">
-        <p className="eyebrow">Keyboard</p>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-[14px] tabular">
-          <div className="flex justify-between border-b border-border py-1.5"><span className="text-muted">Reveal</span><span className="font-mono">SPACE · ENTER</span></div>
-          <div className="flex justify-between border-b border-border py-1.5"><span className="text-muted">Again</span><span className="font-mono">1</span></div>
-          <div className="flex justify-between border-b border-border py-1.5"><span className="text-muted">Hard</span><span className="font-mono">2</span></div>
-          <div className="flex justify-between border-b border-border py-1.5"><span className="text-muted">Good</span><span className="font-mono">3</span></div>
-          <div className="flex justify-between border-b border-border py-1.5"><span className="text-muted">Easy</span><span className="font-mono">4</span></div>
-        </div>
+        <p className="eyebrow">Sources</p>
+        <p className="text-[15px] leading-relaxed">
+          Nothing here is proprietary content. Cards and notes were curated from open study material and cross-checked against published guidelines — ASE 2016 Nagueh (diastolic), ASE 2017 Zoghbi (regurgitation), 2020 ACC/AHA VHD, 2020 AHA/ACC HCM, ASE 2010 Rudski (RV), 2016 Baumgartner/ASE (AS), and the Duke IE criteria among others.
+        </p>
       </section>
 
       <section className="space-y-3">

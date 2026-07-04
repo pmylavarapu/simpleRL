@@ -76,39 +76,39 @@ export default async function Home() {
   }
 
   return (
-    <div className="space-y-16">
-      <section className="space-y-6 pt-4">
+    <div className="space-y-8">
+      <section className="space-y-3">
         <p className="eyebrow">ASCeXAM · Board Review</p>
-        <h1 className="text-4xl sm:text-5xl font-medium tracking-tightest max-w-2xl leading-[1.05]">
+        <h1 className="text-2xl sm:text-3xl font-medium tracking-tightest max-w-2xl leading-[1.15]">
           {stats
             ? "Pick up where you left off."
-            : "A precise, no-nonsense knowledge base for the echo boards."}
+            : "A knowledge base for the echo boards."}
         </h1>
-        <p className="text-[15px] text-muted max-w-xl leading-relaxed">
+        <p className="text-[14px] text-muted max-w-xl leading-relaxed">
           {stats ? (
             <>
-              <span className="tabular">{stats.dueNow}</span> card{stats.dueNow === 1 ? "" : "s"} due,{" "}
-              <span className="tabular">{stats.unseen}</span> unseen,{" "}
-              <span className="tabular">{stats.struggling}</span> to shore up.
+              <span className="tabular">{stats.dueNow}</span> card{stats.dueNow === 1 ? "" : "s"} due ·{" "}
+              <span className="tabular">{stats.unseen}</span> unseen ·{" "}
+              <span className="tabular">{stats.struggling}</span> to shore up
             </>
           ) : (
             <>
-              {total} cards curated from the standard guideline literature and organized to the official ASE blueprint. FSRS scheduling — the cards you miss come back sooner, the ones you know drift further out.
+              {total} cards curated from guideline literature, indexed to the official ASE blueprint. FSRS scheduling underneath.
             </>
           )}
         </p>
-        <div className="flex flex-wrap items-center gap-3 pt-2">
+        <div className="flex flex-wrap items-center gap-2 pt-1">
           <Link
             href="/review"
-            className="inline-flex items-center gap-2 rounded-md bg-fg text-accent-fg px-5 py-2.5 text-[14px] font-medium hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 rounded-md bg-fg text-accent-fg px-4 py-2 text-[13px] font-medium hover:opacity-90 transition-opacity"
           >
             {stats && stats.dueNow > 0 ? `Review ${stats.dueNow} due` : "Start reviewing"} →
           </Link>
           <Link
             href="/decks"
-            className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 text-[14px] font-medium hover:border-fg transition-colors"
+            className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-[13px] font-medium hover:border-fg transition-colors"
           >
-            Browse decks
+            Browse
           </Link>
         </div>
       </section>
@@ -116,7 +116,7 @@ export default async function Home() {
       {stats && (
         <>
           {/* KPI row */}
-          <section className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <section className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             <StatTile label="Seen" value={stats.seen} total={total} />
             <StatTile label="Mastered" value={stats.mastered} total={total} />
             <StatTile label="Due" value={stats.dueNow} />
@@ -124,34 +124,32 @@ export default async function Home() {
           </section>
 
           {/* Progress bar */}
-          <section className="sheet p-6 sm:p-8 space-y-5">
+          <section className="sheet p-4 space-y-3">
             <div className="flex items-baseline justify-between">
               <p className="eyebrow">Progress</p>
-              <p className="text-[12px] text-muted tabular">
-                {stats.seen} of {total} cards seen
+              <p className="text-[11px] text-muted tabular">
+                {stats.seen} / {total} seen
               </p>
             </div>
-            <div>
-              <ProgressBar seenPct={stats.coveragePct} masteredPct={stats.masteryPct} />
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4 text-[12px] text-muted">
-                <LegendDot tone="fg">
-                  <span className="tabular">{stats.masteryPct}%</span> mastered
-                </LegendDot>
-                <LegendDot tone="muted">
-                  <span className="tabular">{Math.max(0, stats.coveragePct - stats.masteryPct)}%</span> needs review
-                </LegendDot>
-                <LegendDot tone="border">
-                  <span className="tabular">{Math.max(0, 100 - stats.coveragePct)}%</span> new
-                </LegendDot>
-              </div>
+            <ProgressBar seenPct={stats.coveragePct} masteredPct={stats.masteryPct} />
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted">
+              <LegendDot tone="fg">
+                <span className="tabular">{stats.masteryPct}%</span> mastered
+              </LegendDot>
+              <LegendDot tone="muted">
+                <span className="tabular">{Math.max(0, stats.coveragePct - stats.masteryPct)}%</span> needs review
+              </LegendDot>
+              <LegendDot tone="border">
+                <span className="tabular">{Math.max(0, 100 - stats.coveragePct)}%</span> new
+              </LegendDot>
             </div>
           </section>
 
           {/* Per-section breakdown */}
           <section>
-            <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
+            <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
               <p className="eyebrow">By section</p>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted">
                 <LegendDot tone="fg">mastered</LegendDot>
                 <LegendDot tone="muted">needs review</LegendDot>
                 <LegendDot tone="border">new</LegendDot>
@@ -166,29 +164,29 @@ export default async function Home() {
                   <li key={sec.code}>
                     <Link
                       href={`/review?section=${sec.code}&status=smart&limit=30`}
-                      className="group flex items-center py-4 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
+                      className="group flex items-center py-2.5 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
                     >
-                      <span className="w-10 shrink-0 text-[13px] font-mono text-muted tabular">
+                      <span className="w-8 shrink-0 text-[12px] font-mono text-muted tabular">
                         {sec.code}.
                       </span>
-                      <div className="flex-1 min-w-0 pr-4">
-                        <div className="text-[14px] font-medium tracking-tight truncate group-hover:underline underline-offset-4 decoration-1">
+                      <div className="flex-1 min-w-0 pr-3">
+                        <div className="text-[13px] font-medium tracking-tight truncate group-hover:underline underline-offset-4 decoration-1">
                           {sec.title}
                         </div>
-                        <div className="mt-2 max-w-md">
+                        <div className="mt-1.5 max-w-md">
                           <ProgressBar seenPct={seenPct} masteredPct={masteredPct} />
                         </div>
                       </div>
                       <div className="text-right shrink-0">
-                        <div className="text-[13px] font-medium tabular">
+                        <div className="text-[12px] font-medium tabular">
                           {s.mastered}
                           <span className="text-muted"> / {s.total}</span>
                         </div>
-                        <div className="text-[11px] text-muted mt-0.5 tabular">
+                        <div className="text-[10px] text-muted tabular">
                           {Math.round(masteredPct)}%
                         </div>
                       </div>
-                      <span className="pl-4 text-muted-soft group-hover:text-fg transition-colors" aria-hidden="true">→</span>
+                      <span className="pl-3 text-muted-soft group-hover:text-fg transition-colors" aria-hidden="true">→</span>
                     </Link>
                   </li>
                 );
@@ -200,32 +198,32 @@ export default async function Home() {
 
       {!stats && (
         <section>
-          <div className="flex items-baseline justify-between mb-4">
+          <div className="flex items-baseline justify-between mb-2">
             <p className="eyebrow">Contents</p>
-            <p className="text-[12px] text-muted tabular">{total} cards · 65 subtopics</p>
+            <p className="text-[11px] text-muted tabular">{total} cards · 65 subtopics</p>
           </div>
           <ol className="divide-y divide-border border-y border-border">
             {BLUEPRINT.map((sec) => (
               <li key={sec.code}>
                 <Link
                   href={`/kb/${sec.slug}`}
-                  className="group flex items-center py-5 hover:bg-bg-soft/60 px-2 -mx-2 rounded transition-colors"
+                  className="group flex items-center py-3 hover:bg-bg-soft/60 px-2 -mx-2 rounded transition-colors"
                 >
-                  <span className="w-10 shrink-0 text-[13px] font-mono text-muted tabular">
+                  <span className="w-8 shrink-0 text-[12px] font-mono text-muted tabular">
                     {sec.code}.
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[15px] font-medium tracking-tight group-hover:underline decoration-1 underline-offset-4">
+                    <div className="text-[14px] font-medium tracking-tight group-hover:underline decoration-1 underline-offset-4">
                       {sec.title}
                     </div>
-                    <div className="text-[12px] text-muted mt-1">
+                    <div className="text-[11px] text-muted mt-0.5">
                       {SECTION_LABELS[sec.code]} · {sec.subtopics.length} subtopics
                     </div>
                   </div>
-                  <span className="text-[12px] text-muted tabular pl-4 shrink-0">
+                  <span className="text-[11px] text-muted tabular pl-3 shrink-0">
                     {bySection.get(sec.code) ?? 0} cards
                   </span>
-                  <span className="pl-4 text-muted-soft group-hover:text-fg transition-colors" aria-hidden="true">→</span>
+                  <span className="pl-3 text-muted-soft group-hover:text-fg transition-colors" aria-hidden="true">→</span>
                 </Link>
               </li>
             ))}
@@ -238,12 +236,12 @@ export default async function Home() {
 
 function StatTile({ label, value, total }: { label: string; value: number; total?: number }) {
   return (
-    <div className="sheet p-4 sm:p-5">
+    <div className="sheet p-3">
       <p className="eyebrow">{label}</p>
-      <div className="mt-2 flex items-baseline gap-1.5">
-        <span className="text-3xl font-medium tracking-tightest tabular">{value}</span>
+      <div className="mt-1 flex items-baseline gap-1">
+        <span className="text-2xl font-medium tracking-tightest tabular">{value}</span>
         {total !== undefined && (
-          <span className="text-[13px] text-muted tabular">/ {total}</span>
+          <span className="text-[12px] text-muted tabular">/ {total}</span>
         )}
       </div>
     </div>

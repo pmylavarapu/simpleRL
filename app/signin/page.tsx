@@ -9,7 +9,7 @@ export default async function SignInPage() {
     <div className="max-w-sm mx-auto pt-12 space-y-6">
       <div className="text-center space-y-2">
         <p className="eyebrow">Access</p>
-        <h1 className="text-2xl font-medium tracking-tightest">Sign in to ASE Echo</h1>
+        <h1 className="text-2xl font-medium tracking-tightest">Sign in to Echo KB</h1>
         <p className="text-[13px] text-muted">Your FSRS progress is saved to your Google account.</p>
       </div>
       <div className="sheet p-6">
