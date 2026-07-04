@@ -20,8 +20,8 @@ export type Card = z.infer<typeof CardSchema>;
 
 const CARDS_DIR = path.join(process.cwd(), "content", "cards");
 
-function codeToFile(code: string): string {
-  return code.replace(/\./g, "_") + ".json";
+function codePrefix(code: string): string {
+  return code.replace(/\./g, "_");
 }
 
 let cache: Card[] | null = null;
@@ -29,18 +29,29 @@ let cache: Card[] | null = null;
 export function loadAllCards(): Card[] {
   if (cache) return cache;
   const out: Card[] = [];
+  const seen = new Set<string>();
   if (!fs.existsSync(CARDS_DIR)) {
     cache = out;
     return out;
   }
   for (const st of ALL_SUBTOPICS) {
-    const file = path.join(CARDS_DIR, codeToFile(st.code));
-    if (!fs.existsSync(file)) continue;
-    const raw = JSON.parse(fs.readFileSync(file, "utf8"));
-    if (!Array.isArray(raw)) throw new Error(`${file} must be a JSON array`);
-    for (const item of raw) {
-      const card = CardSchema.parse(item);
-      out.push(card);
+    const prefix = codePrefix(st.code);
+    // Load both the primary file (II_A.json) and any supplementary files
+    // (II_A_extra.json, II_A_2.json, etc.) so cards can be added incrementally.
+    const files = fs
+      .readdirSync(CARDS_DIR)
+      .filter((f) => f === `${prefix}.json` || f.startsWith(`${prefix}_`))
+      .map((f) => path.join(CARDS_DIR, f))
+      .sort();
+    for (const file of files) {
+      const raw = JSON.parse(fs.readFileSync(file, "utf8"));
+      if (!Array.isArray(raw)) throw new Error(`${file} must be a JSON array`);
+      for (const item of raw) {
+        const card = CardSchema.parse(item);
+        if (seen.has(card.id)) continue;
+        seen.add(card.id);
+        out.push(card);
+      }
     }
   }
   cache = out;
