@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { parseCloze, clozeIndices } from "@/lib/cloze";
 
 type QueueCard = {
@@ -28,7 +28,7 @@ const GRADE_KEY: Record<string, Grade> = {
 };
 
 export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
-  const [queue, setQueue] = useState(initialQueue);
+  const [queue] = useState(initialQueue);
   const [idx, setIdx] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -47,6 +47,81 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
     return idxs[0] ?? 1;
   }, [card]);
 
+  // Refs that always mirror latest state, so the window listener sees fresh values.
+  const submittingRef = useRef(false);
+  const revealedRef = useRef(revealed);
+  const cardRef = useRef(card);
+  const idxRef = useRef(idx);
+  const queueLenRef = useRef(queue.length);
+  const doneRef = useRef(done);
+  useEffect(() => { revealedRef.current = revealed; }, [revealed]);
+  useEffect(() => { cardRef.current = card; }, [card]);
+  useEffect(() => { idxRef.current = idx; }, [idx]);
+  useEffect(() => { queueLenRef.current = queue.length; }, [queue.length]);
+  useEffect(() => { doneRef.current = done; }, [done]);
+
+  const submitGrade = useCallback(async (grade: Grade) => {
+    if (doneRef.current) return;
+    if (submittingRef.current || !revealedRef.current) return;
+    const currentCard = cardRef.current;
+    if (!currentCard) return;
+    submittingRef.current = true;
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/review", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ cardId: currentCard.id, grade }),
+      });
+      if (!res.ok) throw new Error(`grade failed: ${res.status}`);
+      setStats((s) => ({ ...s, [grade]: s[grade] + 1 }));
+      if (idxRef.current + 1 >= queueLenRef.current) {
+        setDone(true);
+      } else {
+        setIdx(idxRef.current + 1);
+        setRevealed(false);
+      }
+    } finally {
+      submittingRef.current = false;
+      setSubmitting(false);
+    }
+  }, []);
+
+  // Global keyboard shortcuts — always listens at document level, no focus needed.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (doneRef.current) return;
+      // Skip when typing in a form field.
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      // Ignore modifier combos so we don't hijack browser shortcuts.
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+      if (!revealedRef.current) {
+        if (e.key === " " || e.code === "Space" || e.key === "Enter") {
+          e.preventDefault();
+          setRevealed(true);
+        }
+        return;
+      }
+      const grade = GRADE_KEY[e.key];
+      if (grade) {
+        e.preventDefault();
+        void submitGrade(grade);
+      }
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [submitGrade]);
+
   if (done || !card) {
     return (
       <div className="border border-border rounded-lg p-6 text-center space-y-4">
@@ -59,44 +134,13 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
     );
   }
 
-  async function submitGrade(grade: Grade) {
-    if (submitting || !revealed) return;
-    setSubmitting(true);
-    try {
-      const res = await fetch("/api/review", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ cardId: card.id, grade }),
-      });
-      if (!res.ok) throw new Error(`grade failed: ${res.status}`);
-      setStats((s) => ({ ...s, [grade]: s[grade] + 1 }));
-      if (idx + 1 >= queue.length) {
-        setDone(true);
-      } else {
-        setIdx(idx + 1);
-        setRevealed(false);
-      }
-    } finally {
-      setSubmitting(false);
-    }
+  // Prevent Space from also triggering focused button click, which would fight the window listener.
+  function stopButtonSpace(e: React.KeyboardEvent<HTMLButtonElement>) {
+    if (e.key === " " || e.code === "Space") e.preventDefault();
   }
 
   return (
-    <div
-      className="space-y-4"
-      onKeyDown={(e) => {
-        if (!revealed && (e.key === " " || e.key === "Enter")) {
-          e.preventDefault();
-          setRevealed(true);
-          return;
-        }
-        if (revealed && GRADE_KEY[e.key]) {
-          e.preventDefault();
-          void submitGrade(GRADE_KEY[e.key]);
-        }
-      }}
-      tabIndex={0}
-    >
+    <div className="space-y-4">
       <div className="text-xs text-muted text-right">
         {idx + 1} / {queue.length} · {card.topic}
       </div>
@@ -118,6 +162,8 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
 
       {!revealed ? (
         <button
+          type="button"
+          onKeyDown={stopButtonSpace}
           className="w-full rounded-md bg-accent text-white py-2 font-medium hover:opacity-90"
           onClick={() => setRevealed(true)}
         >
@@ -128,7 +174,9 @@ export function ReviewSession({ initialQueue }: { initialQueue: QueueCard[] }) {
           {(["again", "hard", "good", "easy"] as Grade[]).map((g, i) => (
             <button
               key={g}
+              type="button"
               disabled={submitting}
+              onKeyDown={stopButtonSpace}
               onClick={() => submitGrade(g)}
               className="rounded-md border border-border py-2 text-sm hover:border-accent disabled:opacity-50"
             >
