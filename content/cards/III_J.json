@@ -1,0 +1,8 @@
+[
+  {"id":"III.J-001","topic":"III.J","type":"cloze","front":"Volumetric flow by Doppler: SV = {{c1::CSA × VTI}}. CSA of a circular annulus = {{c2::0.785 × d²}}.","source":"General"},
+  {"id":"III.J-002","topic":"III.J","type":"basic","front":"Formula for cardiac output and normal range?","back":"CO = SV × HR. Normal 4–8 L/min. Cardiac index (CO/BSA) normal 2.5–4.0 L/min/m².","source":"General"},
+  {"id":"III.J-003","topic":"III.J","type":"basic","front":"State the two components of Qp:Qs and the threshold typically considered hemodynamically significant.","back":"Qp = CSA_pulmonic × VTI_pulmonic. Qs = CSA_LVOT × VTI_LVOT. Qp:Qs > 1.5 is hemodynamically significant; > 2.0 usually prompts closure in unrepaired shunts.","source":"Pettersen / General"},
+  {"id":"III.J-004","topic":"III.J","type":"basic","front":"Why do small errors in LVOT diameter measurement produce large errors in stroke volume?","back":"CSA = π × (d/2)². The diameter is SQUARED — a 10% underestimation of diameter underestimates CSA (and SV) by ~20%.","source":"General"},
+  {"id":"III.J-005","topic":"III.J","type":"basic","front":"State the aortic valve area continuity equation.","back":"AVA = (CSA_LVOT × VTI_LVOT) / VTI_AV.","source":"Mody"},
+  {"id":"III.J-006","topic":"III.J","type":"basic","front":"When are regurgitant volumes computed by SV-difference INVALID?","back":"When both valves being compared have significant regurgitation, or when either is stenotic. For MR: aortic valve must be competent. For AR: mitral valve must be competent.","source":"General"}
+]

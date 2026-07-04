@@ -1,0 +1,5 @@
+[
+  {"id":"V.D-001","topic":"V.D","type":"basic","front":"Why do microbubbles work as intravascular tracers?","back":"They are too large to leave the vascular space and remain confined to the intravascular compartment — so their myocardial concentration reflects capillary blood volume.","source":"General"},
+  {"id":"V.D-002","topic":"V.D","type":"basic","front":"Describe the 'flash-replenishment' technique for myocardial perfusion echo.","back":"During steady-state contrast infusion, a brief high-MI 'flash' pulse destroys myocardial microbubbles. Subsequent low-MI imaging tracks replenishment kinetics: replenishment rate (β) reflects capillary flow velocity; plateau intensity (A) reflects capillary blood volume. MBF ∝ A × β.","source":"General"},
+  {"id":"V.D-003","topic":"V.D","type":"basic","front":"How does myocardial contrast echo distinguish viable vs infarcted myocardium?","back":"Contrast enhancement in a wall-motion-abnormal region indicates intact microvasculature and viable myocardium (potential for functional recovery after revascularization). Absent enhancement suggests scar / transmural infarction.","source":"General"}
+]

@@ -1,0 +1,4 @@
+[
+  {"id":"I.P-001","topic":"I.P","type":"basic","front":"What questions is handheld/POCUS echo best suited to answer?","back":"Targeted binary questions: pericardial effusion (yes/no), gross LV function (normal/reduced/severely reduced), IVC size and collapsibility, gross valve pathology screen.","source":"General"},
+  {"id":"I.P-002","topic":"I.P","type":"basic","front":"Can a handheld echo replace a comprehensive TTE?","back":"No. POCUS complements but does not replace a full study — it is limited in modes, views, and quantitative measurement capability.","source":"General"}
+]

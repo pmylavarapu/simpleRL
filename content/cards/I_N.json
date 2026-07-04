@@ -1,0 +1,7 @@
+[
+  {"id":"I.N-001","topic":"I.N","type":"basic","front":"What is 'stitch artifact' in 3D echo?","back":"An acquisition artifact from multibeat/ECG-gated 3D volumes. When the patient's rhythm is irregular (AF, PVCs) or respiration varies between cycles, the stitched segments misalign.","source":"General/Mody"},
+  {"id":"I.N-002","topic":"I.N","type":"basic","front":"Real-time (single-beat) vs multibeat 3D — trade-off?","back":"Single-beat: lower spatial/temporal resolution but immune to stitch artifact. Multibeat: better resolution but requires stable rhythm and breath-hold.","source":"General"},
+  {"id":"I.N-003","topic":"I.N","type":"basic","front":"Why is 3D echo the gold standard for mitral annuloplasty ring dehiscence?","back":"It offers a direct en-face 'surgeon's view' of the entire mitral annulus and the perimeter of the prosthesis, showing paravalvular dehiscence locations that 2D cannot fully appreciate.","source":"Mody"},
+  {"id":"I.N-004","topic":"I.N","type":"basic","front":"How do 3D-derived LV volumes compare with 2D biplane and cMRI?","back":"3D LV volumes are larger than 2D biplane (which foreshortens the apex) and closer to cMRI. EF is similar between modalities.","source":"Mody"},
+  {"id":"I.N-005","topic":"I.N","type":"basic","front":"How does 3D echo measure LV mass?","back":"Directly, without geometric assumptions (unlike M-mode or 2D-linear methods, which assume ellipsoid LV shape).","source":"Mody"}
+]

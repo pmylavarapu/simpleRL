@@ -1,0 +1,10 @@
+[
+  {"id":"I.I-001","topic":"I.I","type":"basic","front":"Describe laminar flow's velocity profile and its Doppler appearance.","back":"Parabolic velocity profile (fastest at center, slowest at wall). Produces a narrow spectral envelope with a clear window.","source":"Mody"},
+  {"id":"I.I-002","topic":"I.I","type":"basic","front":"Describe plug (blunt) flow. Where in the heart is it typical?","back":"Flat velocity profile — all streamlines move at nearly the same speed. Typical in the LVOT and proximal aorta. Produces a narrow spectral envelope.","source":"Mody"},
+  {"id":"I.I-003","topic":"I.I","type":"basic","front":"What does turbulent flow look like on spectral and color Doppler?","back":"Spectral: broadening, fill-in of the envelope. Color: mosaic pattern with variance (green if variance is enabled).","source":"Mody"},
+  {"id":"I.I-004","topic":"I.I","type":"cloze","front":"Volumetric flow = {{c1::cross-sectional area × mean velocity}}, and stroke volume through a site = {{c2::CSA × VTI}}.","source":"Otto/general"},
+  {"id":"I.I-005","topic":"I.I","type":"basic","front":"State the modified Bernoulli equation.","back":"ΔP ≈ 4v². Peak instantaneous gradient in mmHg = 4 × (peak velocity in m/s)². Valid when proximal velocity is negligible.","source":"Mody"},
+  {"id":"I.I-006","topic":"I.I","type":"basic","front":"When must the full form of the Bernoulli equation be used?","back":"When the proximal velocity (v₁) is not negligible (typically > 1.5 m/s). Use ΔP = 4(v₂² − v₁²).","source":"Mody"},
+  {"id":"I.I-007","topic":"I.I","type":"basic","front":"What is the continuity equation and when do you apply it?","back":"At steady state, flow into a chamber equals flow out. Applied to calculate AVA from LVOT: AVA = (CSA_LVOT × VTI_LVOT) / VTI_AV.","source":"Mody"},
+  {"id":"I.I-008","topic":"I.I","type":"basic","front":"What is the role of the wall filter in Doppler?","back":"Removes low-frequency wall-motion artifact from the Doppler signal. Set too high, it can eliminate low-velocity flow signals of clinical interest.","source":"Mody"}
+]

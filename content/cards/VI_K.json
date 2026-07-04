@@ -1,0 +1,6 @@
+[
+  {"id":"VI.K-001","topic":"VI.K","type":"basic","front":"What is DICOM?","back":"Digital Imaging and Communications in Medicine — the universal standard file format and network protocol for storing, transferring, and displaying medical imaging including echocardiograms.","source":"General"},
+  {"id":"VI.K-002","topic":"VI.K","type":"basic","front":"What is PACS?","back":"Picture Archiving and Communication System — a networked system for medical image storage, retrieval, and cross-departmental access.","source":"General"},
+  {"id":"VI.K-003","topic":"VI.K","type":"basic","front":"Compare lossless vs lossy JPEG compression for echo storage.","back":"Lossless: preserves all pixel data, larger files, no quality loss. Lossy (JPEG): smaller files at the cost of some visual information; diagnostic quality can be preserved with appropriate compression ratios.","source":"General"},
+  {"id":"VI.K-004","topic":"VI.K","type":"basic","front":"Which communication standard is used for hospital order routing to imaging systems?","back":"HL7 (for demographic/order data) combined with DICOM Modality Worklist (MWL) for routing orders from the EMR to the imaging device.","source":"General"}
+]

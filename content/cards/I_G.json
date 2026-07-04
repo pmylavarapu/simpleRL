@@ -1,0 +1,10 @@
+[
+  {"id":"I.G-001","topic":"I.G","type":"basic","front":"Name the four short-axis parasternal levels from base to apex.","back":"1) Aortic valve. 2) Mitral valve. 3) Mid-papillary. 4) Apex.","source":"Mody"},
+  {"id":"I.G-002","topic":"I.G","type":"basic","front":"Which parasternal short-axis level is the primary intraoperative view?","back":"Mid-papillary level. Used for wall-motion assessment and volume status during surgery.","source":"Otto/general"},
+  {"id":"I.G-003","topic":"I.G","type":"basic","front":"Which view is most sensitive for detecting an atrial septal defect on TTE?","back":"Subcostal 4-chamber. The septum is imaged perpendicular to the beam, avoiding drop-out.","source":"Mody"},
+  {"id":"I.G-004","topic":"I.G","type":"basic","front":"From which view do you assess the aortic arch and search for coarctation on TTE?","back":"Suprasternal notch view.","source":"Otto/general"},
+  {"id":"I.G-005","topic":"I.G","type":"basic","front":"Name the six mitral leaflet segments.","back":"Anterior: A1 (lateral), A2 (middle), A3 (medial). Posterior: P1 (lateral), P2 (middle), P3 (medial).","source":"Mody"},
+  {"id":"I.G-006","topic":"I.G","type":"basic","front":"Name the three aortic valve cusps.","back":"Right coronary cusp (RCC), Left coronary cusp (LCC), and Non-coronary cusp (NCC).","source":"Mody"},
+  {"id":"I.G-007","topic":"I.G","type":"basic","front":"Which two LV walls are visualized in the apical 2-chamber view?","back":"Inferior and anterior walls.","source":"Otto/general"},
+  {"id":"I.G-008","topic":"I.G","type":"basic","front":"Which two LV walls are visualized in the apical 3-chamber (LAX) view?","back":"Anteroseptal (or inferoseptal) and inferolateral (posterior). The LVOT is also seen.","source":"Otto/general"}
+]

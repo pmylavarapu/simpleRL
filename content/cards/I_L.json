@@ -1,0 +1,7 @@
+[
+  {"id":"I.L-001","topic":"I.L","type":"basic","front":"Preprocessing vs postprocessing — which one changes the stored data?","back":"Preprocessing (gain, TGC, dynamic range, filtering) alters signals before storage. Postprocessing (gray-scale maps, colorization, edge enhancement) is applied after storage and can be changed non-destructively.","source":"General"},
+  {"id":"I.L-002","topic":"I.L","type":"basic","front":"Effect of a lower dynamic range on the displayed image?","back":"Higher contrast — fewer gray shades between black and white, more binary appearance.","source":"Mody"},
+  {"id":"I.L-003","topic":"I.L","type":"basic","front":"Effect of frame averaging (persistence)?","back":"Averages consecutive frames to reduce noise, at the cost of temporal resolution — motion appears blurred.","source":"General"},
+  {"id":"I.L-004","topic":"I.L","type":"basic","front":"What is scan conversion?","back":"The process of interpolating radial (polar) beam-line data onto a rectangular pixel grid for display.","source":"General"},
+  {"id":"I.L-005","topic":"I.L","type":"basic","front":"Which zoom improves resolution — read or write?","back":"Write zoom (reacquires with more scan lines / pixels in the ROI). Read zoom only magnifies stored data.","source":"Mody"}
+]

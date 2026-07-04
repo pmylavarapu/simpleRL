@@ -1,0 +1,6 @@
+[
+  {"id":"VI.L-001","topic":"VI.L","type":"basic","front":"Which organization accredits echocardiography labs in the United States?","back":"The IAC (Intersocietal Accreditation Commission) — specifically IAC Echocardiography.","source":"General"},
+  {"id":"VI.L-002","topic":"VI.L","type":"basic","front":"Approximately what proportion of echo studies should undergo peer review as part of a quality-assurance program?","back":"At least 10% of studies periodically peer-reviewed for image quality, interpretation, and reporting.","source":"General"},
+  {"id":"VI.L-003","topic":"VI.L","type":"basic","front":"Which credential is standard for a sonographer performing adult echocardiography in the US?","back":"Registered Diagnostic Cardiac Sonographer (RDCS) through the American Registry for Diagnostic Medical Sonography (ARDMS), or Registered Cardiac Sonographer (RCS) through Cardiovascular Credentialing International (CCI).","source":"General"},
+  {"id":"VI.L-004","topic":"VI.L","type":"basic","front":"What are 'Appropriate Use Criteria' (AUC) in echocardiography?","back":"Society-endorsed (ACC, ASE) criteria that classify indications for echocardiography as appropriate, may be appropriate, or rarely appropriate — guiding test ordering to reduce unnecessary imaging.","source":"General"}
+]

@@ -1,0 +1,8 @@
+[
+  {"id":"IV.D-001","topic":"IV.D","type":"basic","front":"What congenital defect is commonly associated with a cleft anterior mitral leaflet?","back":"Primum ASD (partial AVSD). Endocardial cushion defects generally involve the mitral valve to varying degrees. Isolated cleft AMVL is rare.","source":"Pettersen"},
+  {"id":"IV.D-002","topic":"IV.D","type":"basic","front":"Describe a parachute mitral valve.","back":"All mitral chordae insert into a SINGLE papillary muscle. Results in subvalvular mitral stenosis. Component of Shone complex.","source":"Pettersen"},
+  {"id":"IV.D-003","topic":"IV.D","type":"basic","front":"List the four obstructions of Shone complex.","back":"1) Supravalvular mitral ring. 2) Parachute mitral valve (subvalvular MS). 3) Subaortic stenosis (membrane). 4) Coarctation of the aorta.","source":"Pettersen"},
+  {"id":"IV.D-004","topic":"IV.D","type":"basic","front":"Cor triatriatum sinistrum — key distinguishing Doppler finding vs valvular MS?","back":"Cor triatriatum produces a pressure gradient across the LA membrane BOTH in systole and diastole. Valvular MS produces a diastolic gradient only.","source":"Pettersen"},
+  {"id":"IV.D-005","topic":"IV.D","type":"basic","front":"What is a supravalvular mitral ring?","back":"A congenital fibrous ring in the LA above the mitral annulus that obstructs LV inflow. Component of Shone complex; mimics mitral stenosis.","source":"Pettersen"},
+  {"id":"IV.D-006","topic":"IV.D","type":"basic","front":"What is a 'straddling' mitral valve?","back":"Mitral chordae insert on BOTH sides of the interventricular septum (rather than only the LV). Seen in complex AV canal defects and complex CHD.","source":"Pettersen"}
+]

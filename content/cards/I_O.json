@@ -1,0 +1,5 @@
+[
+  {"id":"I.O-001","topic":"I.O","type":"basic","front":"When should IV contrast be used for LV opacification?","back":"When ≥ 2 of 6 basal or mid LV segments are poorly visualized on standard imaging (per ASE guidelines).","source":"General"},
+  {"id":"I.O-002","topic":"I.O","type":"basic","front":"First-line echo modality for suspected LAA thrombus prior to cardioversion?","back":"TEE. TTE cannot reliably visualize the LAA.","source":"Mody"},
+  {"id":"I.O-003","topic":"I.O","type":"basic","front":"When is handheld / point-of-care echo (POCUS) appropriate?","back":"Bedside triage of pericardial effusion, gross LV function, and IVC assessment. Not a substitute for a comprehensive study.","source":"General"}
+]

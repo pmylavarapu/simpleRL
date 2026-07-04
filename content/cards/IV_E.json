@@ -1,0 +1,7 @@
+[
+  {"id":"IV.E-001","topic":"IV.E","type":"basic","front":"State the echo formula for Qp:Qs.","back":"Qp:Qs = (CSA_pulmonic × VTI_pulmonic) / (CSA_LVOT × VTI_LVOT).","source":"Pettersen"},
+  {"id":"IV.E-002","topic":"IV.E","type":"basic","front":"State the Qp:Qs threshold generally considered hemodynamically significant and the threshold favoring closure.","back":"Hemodynamically significant > 1.5. Closure typically indicated at > 2.0 in unrepaired ASD/VSD (in absence of Eisenmenger physiology).","source":"Pettersen"},
+  {"id":"IV.E-003","topic":"IV.E","type":"basic","front":"How does peak flow velocity across a small restrictive VSD compare to a large unrestrictive VSD?","back":"Small restrictive: HIGH velocity (~4–5 m/s), reflecting the large LV-RV systolic pressure difference. Large unrestrictive: pressures equalize → LOW velocity across the defect.","source":"Pettersen"},
+  {"id":"IV.E-004","topic":"IV.E","type":"basic","front":"Estimate RV systolic pressure from a VSD jet.","back":"RVSP = systolic BP − (4 × VSD peak velocity²), assuming no LVOT obstruction. E.g., BP 120, VSD peak 4 m/s: RVSP = 120 − 64 = 56 mmHg.","source":"Pettersen"},
+  {"id":"IV.E-005","topic":"IV.E","type":"basic","front":"What color Doppler finding on the pulmonary artery suggests a PDA?","back":"Continuous flow from the aorta into the pulmonary artery near the origin of the left PA. Best appreciated in the parasternal short-axis view of the great vessels and suprasternal notch view.","source":"Pettersen"}
+]

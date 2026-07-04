@@ -1,0 +1,7 @@
+[
+  {"id":"III.G-001","topic":"III.G","type":"basic","front":"State the RA area cutoff for right atrial enlargement.","back":"> 18 cm² measured in the RV-focused apical 4-chamber view at end-systole.","source":"ASE 2015"},
+  {"id":"III.G-002","topic":"III.G","type":"basic","front":"Name three normal anatomic RA structures that are commonly mistaken for pathology.","back":"1) Eustachian valve (IVC valve). 2) Chiari network (fenestrated web from embryonic right valve of sinus venosus). 3) Crista terminalis (ridge separating smooth from trabeculated RA — often confused for a mass on TEE).","source":"Mody"},
+  {"id":"III.G-003","topic":"III.G","type":"basic","front":"What is the Chiari network?","back":"A fenestrated web-like remnant of the embryonic right valve of the sinus venosus in the RA — a normal variant, not pathologic.","source":"Mody"},
+  {"id":"III.G-004","topic":"III.G","type":"basic","front":"Most common source of RA thrombus in a patient without indwelling hardware?","back":"Migratory thrombus from a lower extremity deep vein thrombosis ('thrombus-in-transit') — often precedes pulmonary embolism.","source":"General"},
+  {"id":"III.G-005","topic":"III.G","type":"basic","front":"How does severe TR appear on hepatic vein PW Doppler?","back":"Systolic flow reversal in the hepatic vein. (Normal HV has a dominant systolic forward wave.)","source":"ASE 2017 Zoghbi"}
+]

@@ -1,0 +1,6 @@
+[
+  {"id":"I.D-001","topic":"I.D","type":"basic","front":"Give three examples of specular reflectors in the heart.","back":"Chamber walls, valve leaflets, pericardium, diaphragm — large (> λ), smooth surfaces that produce strong reflections.","source":"Mody"},
+  {"id":"I.D-002","topic":"I.D","type":"basic","front":"Give two examples of non-specular reflectors (scatterers) and their significance.","back":"Red blood cells and soft tissue — small or rough. They scatter US in multiple directions; scattering off RBCs is the physical basis of Doppler.","source":"Mody"},
+  {"id":"I.D-003","topic":"I.D","type":"basic","front":"Under what geometric condition does refraction NOT occur at an interface?","back":"When the beam is at normal incidence (90°) to the interface — no oblique component to refract.","source":"Mody"},
+  {"id":"I.D-004","topic":"I.D","type":"basic","front":"How does higher transducer frequency affect scattering?","back":"Higher frequency = more scatter (scatter cross-section increases with frequency). This is why high-frequency imaging shows more speckle.","source":"Mody"}
+]

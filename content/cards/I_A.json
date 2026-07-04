@@ -1,0 +1,9 @@
+[
+  {"id":"I.A-001","topic":"I.A","type":"basic","front":"Normal peak velocity across the LVOT?","back":"0.7 – 1.1 m/s.","source":"Mody"},
+  {"id":"I.A-002","topic":"I.A","type":"basic","front":"Normal peak velocity in the ascending aorta?","back":"1.0 – 1.7 m/s.","source":"Mody"},
+  {"id":"I.A-003","topic":"I.A","type":"basic","front":"Normal peak mitral E velocity in a young adult?","back":"~1.0 m/s (range 0.6 – 1.3 m/s). Mitral A is 0.2 – 0.7 m/s, giving E/A > 1.","source":"Mody"},
+  {"id":"I.A-004","topic":"I.A","type":"basic","front":"How does the mitral E/A ratio typically change with age?","back":"Young: E/A > 1. Around age 50–60: ≈ 1. Older: E/A < 1 (impaired relaxation is the norm). E velocity falls, DT prolongs, A velocity rises.","source":"Mody"},
+  {"id":"I.A-005","topic":"I.A","type":"basic","front":"What are the three components of a normal pulmonary vein PW Doppler signal?","back":"S wave (systolic forward flow), D wave (diastolic forward flow), and A-reversal (atrial contraction-induced retrograde flow into the PV).","source":"Mody"},
+  {"id":"I.A-006","topic":"I.A","type":"basic","front":"Where do you place the PW sample volume to measure mitral inflow?","back":"At the tips of the mitral leaflets during maximum leaflet opening (early diastole).","source":"Mody"},
+  {"id":"I.A-007","topic":"I.A","type":"basic","front":"Which Doppler modality is used to measure e′ at the mitral annulus?","back":"Tissue Doppler (PW-TDI) with the sample volume at the septal and lateral mitral annulus.","source":"Mody"}
+]
