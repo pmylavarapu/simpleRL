@@ -133,24 +133,29 @@ export default async function Home() {
             </div>
             <div>
               <ProgressBar seenPct={stats.coveragePct} masteredPct={stats.masteryPct} />
-              <div className="flex items-center justify-between mt-3 text-[12px] text-muted">
-                <span className="flex items-center gap-2">
-                  <span className="inline-block w-2 h-2 rounded-full bg-fg" />
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4 text-[12px] text-muted">
+                <LegendDot tone="fg">
                   <span className="tabular">{stats.masteryPct}%</span> mastered
-                </span>
-                <span className="flex items-center gap-2">
-                  <span className="inline-block w-2 h-2 rounded-full border border-fg" />
-                  <span className="tabular">{stats.coveragePct}%</span> seen
-                </span>
+                </LegendDot>
+                <LegendDot tone="muted">
+                  <span className="tabular">{Math.max(0, stats.coveragePct - stats.masteryPct)}%</span> needs review
+                </LegendDot>
+                <LegendDot tone="border">
+                  <span className="tabular">{Math.max(0, 100 - stats.coveragePct)}%</span> new
+                </LegendDot>
               </div>
             </div>
           </section>
 
           {/* Per-section breakdown */}
           <section>
-            <div className="flex items-baseline justify-between mb-4">
+            <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
               <p className="eyebrow">By section</p>
-              <p className="text-[12px] text-muted tabular">Mastery per domain</p>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted">
+                <LegendDot tone="fg">mastered</LegendDot>
+                <LegendDot tone="muted">needs review</LegendDot>
+                <LegendDot tone="border">new</LegendDot>
+              </div>
             </div>
             <ul className="divide-y divide-border border-y border-border">
               {BLUEPRINT.map((sec) => {
@@ -246,20 +251,34 @@ function StatTile({ label, value, total }: { label: string; value: number; total
 }
 
 function ProgressBar({ seenPct, masteredPct }: { seenPct: number; masteredPct: number }) {
-  // Two-layer bar: mastered (solid black) sits inside seen (mid-gray),
-  // with a soft neutral track behind. Apple-esque, three shades of neutral.
+  // Three-segment bar in three tones of neutral:
+  //   [0 → mastered%]  solid black  = mastered
+  //   [mastered → seen%]  mid-gray  = started, needs review
+  //   [seen → 100%]  light track    = unseen
   const seen = Math.max(0, Math.min(100, seenPct));
   const mastered = Math.max(0, Math.min(100, masteredPct));
   return (
     <div className="relative h-[6px] rounded-full bg-border overflow-hidden">
+      {/* mid-gray fill up to seen% (the visible "needs review" band shows between mastered and seen) */}
       <div
-        className="absolute inset-y-0 left-0 bg-muted-soft transition-all duration-500"
+        className="absolute inset-y-0 left-0 bg-muted transition-all duration-500"
         style={{ width: `${seen}%` }}
       />
+      {/* solid black fill up to mastered% */}
       <div
         className="absolute inset-y-0 left-0 bg-fg transition-all duration-500"
         style={{ width: `${mastered}%` }}
       />
     </div>
+  );
+}
+
+function LegendDot({ tone, children }: { tone: "fg" | "muted" | "border"; children: React.ReactNode }) {
+  const cls = tone === "fg" ? "bg-fg" : tone === "muted" ? "bg-muted" : "bg-border";
+  return (
+    <span className="flex items-center gap-1.5">
+      <span className={`inline-block w-2 h-2 rounded-full ${cls}`} />
+      <span>{children}</span>
+    </span>
   );
 }
