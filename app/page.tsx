@@ -69,7 +69,7 @@ export default async function Home() {
     <div>
       {/* Hero */}
       <section className="bg-bg">
-        <div className="mx-auto max-w-6xl px-6 py-14 sm:py-20 text-center">
+        <div className="mx-auto max-w-6xl px-6 py-10 sm:py-14 text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tightest leading-[1.05]">
             {stats
               ? stats.dueNow > 0
@@ -94,7 +94,7 @@ export default async function Home() {
               <>Board-review flashcards, spaced by FSRS.</>
             )}
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px]">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px]">
             <Link href="/review" className="text-fg font-medium hover:opacity-70 transition-opacity">
               {stats && stats.dueNow > 0 ? "Review now" : "Start studying"} →
             </Link>
@@ -108,7 +108,7 @@ export default async function Home() {
       {/* Signed-in stats — contrasts against hero with a soft neutral */}
       {stats && (
         <section className="bg-bg-soft border-y border-border">
-          <div className="mx-auto max-w-4xl px-6 py-12 sm:py-16 space-y-10">
+          <div className="mx-auto max-w-4xl px-6 py-8 sm:py-12 space-y-8">
             <div className="text-center space-y-4">
               <p className="eyebrow">Your progress</p>
               <div className="flex items-baseline justify-center gap-1.5">
@@ -146,8 +146,8 @@ export default async function Home() {
 
       {/* Blueprint — white again to contrast the soft stat section */}
       <section className="bg-bg">
-        <div className="mx-auto max-w-3xl px-6 py-12 sm:py-16">
-          <div className="text-center mb-8">
+        <div className="mx-auto max-w-3xl px-6 py-8 sm:py-12">
+          <div className="text-center mb-6">
             <p className="eyebrow">The blueprint</p>
             <h2 className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tightest">
               {stats ? "By section" : `Six domains, ${total} cards.`}
