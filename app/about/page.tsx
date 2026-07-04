@@ -43,23 +43,19 @@ export default function AboutPage() {
       </section>
 
       <section className="space-y-3">
-        <p className="eyebrow">Filters</p>
-        <ul className="text-[15px] leading-relaxed space-y-2 list-none">
+        <p className="eyebrow">Modes</p>
+        <ul className="text-[15px] leading-relaxed space-y-3 list-none">
           <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">Due today</span>
-            <span className="flex-1">Cards FSRS says are ready, plus new ones you haven't seen.</span>
+            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">FSRS</span>
+            <span className="flex-1">The default. Cards scheduled by the algorithm plus new ones mixed in — the fastest path to knowing what you don't know.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">Unseen</span>
+            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">New</span>
             <span className="flex-1">Cards you've never reviewed.</span>
           </li>
           <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">Struggling</span>
-            <span className="flex-1">Recent Again/Hard grades, or cards that have lapsed at least once.</span>
-          </li>
-          <li className="flex gap-3">
-            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">Known</span>
-            <span className="flex-1">Cards that have stabilized in FSRS's Review state.</span>
+            <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">Incorrect</span>
+            <span className="flex-1">Cards you've missed recently or that have lapsed. Useful for a quick cleanup pass.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-muted font-mono text-[12px] w-28 shrink-0 pt-1 tabular">All</span>
