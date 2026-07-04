@@ -31,3 +31,14 @@ export function clozeIndices(input: string): number[] {
   for (const match of input.matchAll(RE)) idx.add(Number(match[1]));
   return [...idx].sort((a, b) => a - b);
 }
+
+// Return the cloze text with all answers unmasked (for KB browse / preview).
+// {{c1::foo}} → foo   ·   {{c1::foo::hint}} → foo
+export function clozeUnmasked(input: string): string {
+  return input.replace(RE, (_m, _idx, answer) => answer);
+}
+
+// Return the question form: hidden as "___" or "[hint]". Useful for browse.
+export function clozeHidden(input: string): string {
+  return input.replace(RE, (_m, _idx, _answer, hint) => (hint ? `[${hint}]` : "___"));
+}
