@@ -30,11 +30,16 @@ export async function POST(req: Request) {
 
   const update = schedule(existing, body.grade as Grade);
 
-  const saved = await prisma.reviewState.upsert({
-    where: { userId_cardId: { userId, cardId: body.cardId } },
-    create: { userId, cardId: body.cardId, ...update },
-    update,
-  });
+  const [saved] = await prisma.$transaction([
+    prisma.reviewState.upsert({
+      where: { userId_cardId: { userId, cardId: body.cardId } },
+      create: { userId, cardId: body.cardId, ...update },
+      update,
+    }),
+    prisma.reviewEvent.create({
+      data: { userId, cardId: body.cardId, grade: body.grade },
+    }),
+  ]);
 
   return NextResponse.json({ ok: true, due: saved.due, state: saved.state });
 }

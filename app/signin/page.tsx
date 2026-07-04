@@ -10,7 +10,7 @@ export default async function SignInPage() {
       <div className="text-center space-y-2">
         <p className="eyebrow">Access</p>
         <h1 className="text-2xl font-medium tracking-tightest">Sign in to Echo KB</h1>
-        <p className="text-[13px] text-muted">Your FSRS progress is saved to your Google account.</p>
+        <p className="text-[13px] text-muted">Your progress is saved to your Google account.</p>
       </div>
       <div className="sheet p-6">
         <form

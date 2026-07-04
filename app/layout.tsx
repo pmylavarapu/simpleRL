@@ -21,7 +21,7 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Echo KB",
-  description: "ASCeXAM board-review knowledge base with FSRS spaced repetition.",
+  description: "ASCeXAM board-review knowledge base with spaced repetition.",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -67,7 +67,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <main>{children}</main>
         <footer className="border-t border-border bg-bg-soft">
           <div className="mx-auto max-w-6xl px-6 py-5 flex items-center justify-between text-[12px] text-muted">
-            <span>Echo KB · Board review with FSRS</span>
+            <span>Echo KB · Board review with spaced repetition</span>
             <span className="tabular">v0.1</span>
           </div>
         </footer>

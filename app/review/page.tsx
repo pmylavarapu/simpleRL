@@ -9,7 +9,7 @@ type Status = "smart" | "new" | "incorrect" | "all";
 type SectionCode = "all" | "I" | "II" | "III" | "IV" | "V" | "VI";
 
 const STATUS_LABELS: Record<Status, string> = {
-  smart: "FSRS",
+  smart: "Spaced repetition",
   new: "New cards",
   incorrect: "Incorrect only",
   all: "All cards",
@@ -40,7 +40,7 @@ export default async function ReviewPage({
       <div className="max-w-md mx-auto sheet p-8 text-center space-y-3 mx-6 my-10">
         <p className="eyebrow">Restricted</p>
         <h1 className="text-2xl font-medium tracking-tight">Sign in to review</h1>
-        <p className="text-[13px] text-muted">Your FSRS progress is saved to your account.</p>
+        <p className="text-[13px] text-muted">Your progress is saved to your account.</p>
         <div className="pt-2">
           <Link href="/signin" className="inline-flex items-center gap-2 rounded-md bg-fg text-accent-fg px-5 py-2.5 text-[14px] font-medium hover:opacity-90 transition-opacity">
             Sign in with Google →
@@ -91,14 +91,14 @@ export default async function ReviewPage({
 
   if (!start) {
     return (
-      <div className="max-w-3xl mx-auto space-y-8 px-6 py-10">
+      <div className="max-w-4xl mx-auto space-y-8 px-6 py-10">
         <div className="space-y-3">
           <p className="eyebrow">Review</p>
           <h1 className="text-3xl font-medium tracking-tightest">
             Pick your set.
           </h1>
           <p className="text-[14px] text-muted max-w-xl leading-relaxed">
-            Choose a section, filter, and session size. FSRS runs underneath — miss a card and it comes back sooner.
+            Choose a section, filter, and session size. Spaced repetition runs underneath — miss a card and it comes back sooner.
           </p>
         </div>
 
@@ -140,7 +140,7 @@ export default async function ReviewPage({
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6 px-6 py-10">
+    <div className="max-w-4xl mx-auto space-y-6 px-6 py-10">
       <div className="flex items-baseline justify-between">
         <div>
           <p className="eyebrow">

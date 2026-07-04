@@ -21,6 +21,7 @@ export default async function Home() {
     mastered: number;
     struggling: number;
     dueNow: number;
+    reviewedToday: number;
     coveragePct: number;
     masteryPct: number;
     perSection: Map<string, { seen: number; mastered: number; total: number }>;
@@ -28,9 +29,16 @@ export default async function Home() {
 
   if (session?.user) {
     const userId = (session.user as { id?: string }).id!;
-    const states = await prisma.reviewState.findMany({ where: { userId } });
-    const stateByCardId = new Map(states.map((s) => [s.cardId, s]));
     const now = new Date();
+    // Midnight in the server's local time — Vercel runs UTC, so US users may
+    // see the counter roll over a few hours before their local midnight.
+    const todayStart = new Date(now);
+    todayStart.setHours(0, 0, 0, 0);
+    const [states, reviewedToday] = await Promise.all([
+      prisma.reviewState.findMany({ where: { userId } }),
+      prisma.reviewEvent.count({ where: { userId, reviewedAt: { gte: todayStart } } }),
+    ]);
+    const stateByCardId = new Map(states.map((s) => [s.cardId, s]));
 
     const seen = states.length;
     const unseen = total - seen;
@@ -59,6 +67,7 @@ export default async function Home() {
       mastered,
       struggling,
       dueNow,
+      reviewedToday,
       coveragePct: total > 0 ? Math.round((seen / total) * 100) : 0,
       masteryPct: total > 0 ? Math.round((mastered / total) * 100) : 0,
       perSection,
@@ -69,7 +78,7 @@ export default async function Home() {
     <div>
       {/* Hero */}
       <section className="bg-bg">
-        <div className="mx-auto max-w-6xl px-6 py-10 sm:py-14 text-center">
+        <div className="mx-auto max-w-4xl px-6 py-10 sm:py-14 text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tightest leading-[1.05]">
             {stats
               ? stats.dueNow > 0
@@ -91,7 +100,7 @@ export default async function Home() {
                 <>Every card scheduled. See you tomorrow.</>
               )
             ) : (
-              <>Board-review flashcards, spaced by FSRS.</>
+              <>Board-review flashcards with spaced repetition.</>
             )}
           </p>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px]">
@@ -134,11 +143,12 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-x-6 gap-y-5 text-center">
               <Stat label="Seen" value={stats.seen} />
               <Stat label="Mastered" value={stats.mastered} />
               <Stat label="Due" value={stats.dueNow} />
               <Stat label="Struggling" value={stats.struggling} />
+              <Stat label="Today" value={stats.reviewedToday} />
             </div>
           </div>
         </section>
@@ -146,7 +156,7 @@ export default async function Home() {
 
       {/* Blueprint — white again to contrast the soft stat section */}
       <section className="bg-bg">
-        <div className="mx-auto max-w-3xl px-6 py-8 sm:py-12">
+        <div className="mx-auto max-w-4xl px-6 py-8 sm:py-12">
           <div className="text-center mb-6">
             <p className="eyebrow">The blueprint</p>
             <h2 className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tightest">
@@ -169,7 +179,7 @@ export default async function Home() {
                     href={stats ? `/review?section=${sec.code}&status=smart&limit=30` : `/kb/${sec.slug}`}
                     className="group flex items-center py-3 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
                   >
-                    <span className="w-9 shrink-0 text-[12px] font-mono text-muted tabular">
+                    <span className="w-9 shrink-0 text-[12px] text-muted tabular">
                       {sec.code}.
                     </span>
                     <div className="flex-1 min-w-0 pr-3">

@@ -7,7 +7,7 @@ export default function AboutPage() {
   const subtopics = BLUEPRINT.flatMap((s) => s.subtopics).length;
 
   return (
-    <div className="max-w-2xl mx-auto space-y-12 px-6 py-10">
+    <div className="max-w-4xl mx-auto space-y-12 px-6 py-10">
       <header className="space-y-3">
         <p className="eyebrow">About</p>
         <h1 className="text-3xl sm:text-4xl font-medium tracking-tightest leading-[1.1]">
@@ -59,7 +59,7 @@ export default function AboutPage() {
                   href={`/kb/${sec.slug}`}
                   className="group flex items-center py-3 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
                 >
-                  <span className="w-10 shrink-0 text-[12px] font-mono text-muted tabular">
+                  <span className="w-10 shrink-0 text-[12px] text-muted tabular">
                     {sec.code}.
                   </span>
                   <span className="flex-1 text-[14px] group-hover:underline underline-offset-4 decoration-1">

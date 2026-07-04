@@ -38,7 +38,7 @@ export default function KBIndex() {
                       href={`/kb/${sec.slug}/${st.slug}`}
                       className="group flex items-center py-3.5 px-2 -mx-2 rounded hover:bg-bg-soft/60 transition-colors"
                     >
-                      <span className="w-14 shrink-0 text-[12px] font-mono text-muted tabular">
+                      <span className="w-14 shrink-0 text-[12px] text-muted tabular">
                         {st.code}
                       </span>
                       <span className="flex-1 text-[14px] group-hover:underline underline-offset-4 decoration-1">

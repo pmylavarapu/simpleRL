@@ -28,16 +28,16 @@ export default async function TopicPage({
   const cards = cardsForTopic(subtopic.code);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-12 px-6 py-10">
-      <header className="space-y-3">
+    <div className="max-w-4xl mx-auto space-y-12 px-6 py-10">
+      <header className="space-y-2">
         <Link href={`/kb/${section.slug}`} className="eyebrow hover:text-fg transition-colors inline-block">
           ← Section {section.code} · {section.title}
         </Link>
-        <div className="flex items-baseline gap-3 pt-1">
-          <span className="text-[13px] font-mono text-muted tabular">{subtopic.code}</span>
-          <h1 className="text-3xl font-medium tracking-tightest">{subtopic.title}</h1>
+        <div className="pt-3 space-y-1.5">
+          <div className="text-[13px] text-muted tabular">{subtopic.code}</div>
+          <h1 className="text-3xl font-medium tracking-tightest leading-[1.15]">{subtopic.title}</h1>
         </div>
-        <p className="text-[13px] text-muted tabular">
+        <p className="text-[13px] text-muted tabular pt-1">
           {cards.length} card{cards.length === 1 ? "" : "s"}
         </p>
       </header>
@@ -83,7 +83,7 @@ function CardPreview({ card }: { card: Card }) {
         <span className={`text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider font-medium ${card.type === "cloze" ? "bg-fg text-accent-fg" : "border border-border text-muted"}`}>
           {card.type}
         </span>
-        <span className="text-[11px] text-muted font-mono tabular">{card.id}</span>
+        <span className="text-[11px] text-muted tabular">{card.id}</span>
       </div>
       {card.type === "cloze" && segs ? (
         <div className="text-[14px] leading-relaxed">
