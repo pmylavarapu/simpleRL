@@ -2,6 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import { BLUEPRINT, findSubtopic } from "@/content/blueprint";
 import { cardsForTopic, type Card } from "@/lib/cards";
 import { loadNote } from "@/lib/notes";
@@ -43,7 +46,9 @@ export default async function TopicPage({
         <p className="eyebrow mb-4">Notes</p>
         {note.exists ? (
           <article className="prose prose-neutral max-w-none">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{note.content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
+              {note.content}
+            </ReactMarkdown>
           </article>
         ) : (
           <div className="sheet p-8 text-center text-[13px] text-muted">
