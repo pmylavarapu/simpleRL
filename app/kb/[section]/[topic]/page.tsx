@@ -37,7 +37,7 @@ export default async function TopicPage({
       <section>
         <h2 className="text-lg font-semibold mb-2">Notes</h2>
         {note.exists ? (
-          <article className="prose prose-neutral dark:prose-invert max-w-none">
+          <article className="prose prose-neutral max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{note.content}</ReactMarkdown>
           </article>
         ) : (
