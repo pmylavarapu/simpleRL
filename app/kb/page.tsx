@@ -8,7 +8,7 @@ export default function KBIndex() {
   for (const c of cards) countByTopic.set(c.topic, (countByTopic.get(c.topic) ?? 0) + 1);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-10">
+    <div className="max-w-4xl mx-auto space-y-10 px-6 py-10">
       <div className="space-y-3">
         <p className="eyebrow">Knowledge base</p>
         <h1 className="text-3xl font-medium tracking-tightest">The ASE blueprint, in one place.</h1>

@@ -28,7 +28,7 @@ export default async function TopicPage({
   const cards = cardsForTopic(subtopic.code);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-12">
+    <div className="max-w-3xl mx-auto space-y-12 px-6 py-10">
       <header className="space-y-3">
         <Link href={`/kb/${section.slug}`} className="eyebrow hover:text-fg transition-colors inline-block">
           ← Section {section.code} · {section.title}

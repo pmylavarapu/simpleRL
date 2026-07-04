@@ -6,7 +6,7 @@ export default async function SignInPage() {
   if (session?.user) redirect("/");
 
   return (
-    <div className="max-w-sm mx-auto pt-12 space-y-6">
+    <div className="max-w-sm mx-auto px-6 pt-16 pb-12 space-y-6">
       <div className="text-center space-y-2">
         <p className="eyebrow">Access</p>
         <h1 className="text-2xl font-medium tracking-tightest">Sign in to Echo KB</h1>

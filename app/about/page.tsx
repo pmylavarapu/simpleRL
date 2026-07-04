@@ -7,7 +7,7 @@ export default function AboutPage() {
   const subtopics = BLUEPRINT.flatMap((s) => s.subtopics).length;
 
   return (
-    <div className="max-w-2xl mx-auto space-y-14 py-6">
+    <div className="max-w-2xl mx-auto space-y-12 px-6 py-10">
       <header className="space-y-3">
         <p className="eyebrow">About</p>
         <h1 className="text-3xl sm:text-4xl font-medium tracking-tightest leading-[1.1]">

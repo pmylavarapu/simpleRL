@@ -19,7 +19,7 @@ export default async function SectionPage({ params }: { params: Promise<{ sectio
   const totalCards = section.subtopics.reduce((sum, st) => sum + (countByTopic.get(st.code) ?? 0), 0);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-10">
+    <div className="max-w-4xl mx-auto space-y-10 px-6 py-10">
       <div className="space-y-3">
         <Link href="/kb" className="eyebrow hover:text-fg transition-colors inline-block">← Knowledge base</Link>
         <div className="flex items-baseline gap-3 pt-1">

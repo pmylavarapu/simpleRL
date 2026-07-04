@@ -31,9 +31,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-screen antialiased">
         <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur">
           <div className="mx-auto max-w-6xl px-6 h-14 flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
-              <span className="inline-block w-2 h-2 rounded-full bg-fg" aria-hidden="true" />
-              Echo KB
+            <Link
+              href="/"
+              className="flex items-center text-xl leading-none hover:opacity-70 transition-opacity"
+              aria-label="Echo KB — Home"
+            >
+              <span role="img" aria-label="Anatomical heart">🫀</span>
             </Link>
             <NavLinks />
             <div className="ml-auto text-[13px]">
@@ -54,9 +57,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-6">{children}</main>
-        <footer className="border-t border-border mt-10">
-          <div className="mx-auto max-w-6xl px-6 py-6 flex items-center justify-between text-[12px] text-muted">
+        <main>{children}</main>
+        <footer className="border-t border-border bg-bg-soft">
+          <div className="mx-auto max-w-6xl px-6 py-5 flex items-center justify-between text-[12px] text-muted">
             <span>Echo KB · Board review with FSRS</span>
             <span className="tabular">v0.1</span>
           </div>

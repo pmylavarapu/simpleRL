@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function HowToUsePage() {
   return (
-    <div className="max-w-2xl mx-auto space-y-14 py-6">
+    <div className="max-w-2xl mx-auto space-y-12 px-6 py-10">
       <header className="space-y-3">
         <p className="eyebrow">How to use</p>
         <h1 className="text-3xl sm:text-4xl font-medium tracking-tightest leading-[1.1]">

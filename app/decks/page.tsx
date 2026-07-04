@@ -20,7 +20,7 @@ export default function DecksPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8 px-6 py-10">
       <div className="space-y-3">
         <p className="eyebrow">Decks</p>
         <h1 className="text-3xl font-medium tracking-tightest">{cards.length} cards, 6 domains.</h1>
